@@ -86,6 +86,7 @@ const Nestedview = ({handleEditSectionName}) => {
                             >
                             <RiDeleteBin6Line className="text-xl text-richblack-300" />
                             </button>
+                            <span className="font-medium text-richblack-300"></span>
                             <span className="font-medium text-richblack-300">|</span>
                             <AiFillCaretDown className={`text-xl text-richblack-300`} />
                         </div>

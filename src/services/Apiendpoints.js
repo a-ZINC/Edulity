@@ -34,10 +34,10 @@ export const courseEndpoints = {
   CREATE_SUBSECTION_API: BASE_URL + "/course/createsubsection",
   UPDATE_SECTION_API: BASE_URL + "/course/updatesection",/*done*/
   UPDATE_SUBSECTION_API: BASE_URL + "/course/updatesubsection",
-  GET_ALL_INSTRUCTOR_COURSES_API: BASE_URL + "/course/getInstructorCourses",
+  GET_ALL_INSTRUCTOR_COURSES_API: BASE_URL + "/course/getinstructorcourse",
   DELETE_SECTION_API: BASE_URL + "/course/deletesection",/*done*/
   DELETE_SUBSECTION_API: BASE_URL + "/course/deletesubsection",
-  DELETE_COURSE_API: BASE_URL + "/course/deleteCourse",
+  DELETE_COURSE_API: BASE_URL + "/course/deletecourse",
   GET_FULL_COURSE_DETAILS_AUTHENTICATED:
     BASE_URL + "/course/getFullCourseDetails",
   LECTURE_COMPLETION_API: BASE_URL + "/course/updateCourseProgress",

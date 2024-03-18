@@ -58,7 +58,8 @@ const SubsectionModal = ({modal,setmodal,add=false,view=false,edit=false}) => {
           formData.append("description", currentValues.lectureDesc)
         }
         if (currentValues.lectureVideo !== modal.videourl) {
-          formData.append("video", currentValues.lectureVideo)
+          formData.append("video", currentValues.lectureVideo);
+          formData.append('timeduration',duration);
         }
         setloading(true)
         console.log('good')
@@ -94,7 +95,8 @@ const SubsectionModal = ({modal,setmodal,add=false,view=false,edit=false}) => {
         formData.append("title", data.lectureTitle)
         formData.append("description", data.lectureDesc)
         formData.append("video", data.lectureVideo)
-        formData.append('timeduration',duration)
+        formData.append('timeduration',duration);
+
         setloading(true)
         const result = await addSubSection(formData, token);
         console.log(result);

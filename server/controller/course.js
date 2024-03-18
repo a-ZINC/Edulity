@@ -26,10 +26,6 @@ exports.courseCreate = async(req,res) =>{
             })
         }
         console.log('hello')
-        let stat;
-        if(!status || status===undefined){
-            stat='Draft';
-        }
         console.log('hello2')
         const isInstructor=await User.findById({_id:userid});
         if(isInstructor.accounttype !== 'Instructor'){
@@ -146,6 +142,7 @@ exports.updateCourse=async(req,res)=>{
 exports.deleteCourse=async(req,res)=>{
     try{
         const {courseid}=req.body;
+        console.log(courseid)
         const course=await Course.findById(courseid);
         if (!course){
             return res.status(404).json({ message: "Course not found" })
@@ -184,6 +181,60 @@ exports.deleteCourse=async(req,res)=>{
             success: false,
             message: "Server error",
             error: error.message,
+        })
+    }
+}
+
+exports.getInstructorCourse=async(req,res)=>{
+    try{
+        const userid=req.user.id;
+        console.log(userid);
+        const user=await User.findById(userid);
+       
+        if(!user){
+            return res.status(404).json({
+                success:false,
+                message:"User not Found!!"
+            })
+        }
+        const courses=await User.findById({_id:userid},{course:1,_id:0}).populate('course').exec();
+        console.log(courses)           
+        return res.status(200).json({
+            success:true,
+            message:"Course fetched!",
+            data:courses
+        })
+    }catch(error){
+        return res.status(500).json({
+            success:false,
+            message:error.message
+        })
+    }
+}
+
+exports.getCourseDetail=async(req,res)=>{
+    try{
+        const courseid=req.user.id;
+        console.log(courseid);
+        const user=await User.findById(userid);
+       
+        if(!user){
+            return res.status(404).json({
+                success:false,
+                message:"User not Found!!"
+            })
+        }
+        const courses=await User.findById({_id:userid},{course:1,_id:0}).populate('course').exec();
+        console.log(courses)           
+        return res.status(200).json({
+            success:true,
+            message:"Course fetched!",
+            data:courses
+        })
+    }catch(error){
+        return res.status(500).json({
+            success:false,
+            message:error.message
         })
     }
 }

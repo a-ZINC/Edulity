@@ -16,6 +16,7 @@ import Privateroute from "./component/core/Auth/Privateroute";
 import { Account_type } from "./utils/constant";
 import {useSelector} from 'react-redux';
 import AddCourse from "./component/core/Dashboard/Addcourse";
+import Coursediv from "./component/core/Dashboard/InstructorCourse";
 function App() {
   const {user}=useSelector(state=>state.profile)
   return (
@@ -38,6 +39,7 @@ function App() {
                     user && Account_type.instructor===user.accounttype &&
                     <>
                       <Route path='/dashboard/addcourse' element={<AddCourse/>}/>
+                      <Route path='/dashboard/mycourse' element={<Coursediv/>}/>
                     </>
                   }
             </Route>
