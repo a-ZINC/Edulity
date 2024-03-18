@@ -1,0 +1,189 @@
+const Course=require('../model/course');
+const Category=require("../model/category");
+const Section=require("../model/section");
+const SubSection=require("../model/subsection")
+const { findById } = require('../model/user');
+const {imagetocloudinary}=require("../utils/imageuploader");
+const User=require('../model/user');
+require('dotenv').config();
+
+exports.courseCreate = async(req,res) =>{
+    try{
+        const {title,description,price,category,tag,whatyouwilllearn,status="Draft",instruction}=req.body;
+        const whatyouwilllearns=JSON.parse(whatyouwilllearn);
+        
+        const tags=JSON.parse(tag);
+        const instructions=JSON.parse(instruction);
+        console.log(tags,instructions,whatyouwilllearns,title,description,price,category);
+        const thumbnail=req.files.thumbnail;
+        const userid=req.user.id
+        console.log(thumbnail);
+       
+        if(!title || !description || !price || !category || !tag || !whatyouwilllearn || !thumbnail){
+            return res.status(400).json({
+                success:false,
+                message:"All Fields Are Required!"
+            })
+        }
+        console.log('hello')
+        let stat;
+        if(!status || status===undefined){
+            stat='Draft';
+        }
+        console.log('hello2')
+        const isInstructor=await User.findById({_id:userid});
+        if(isInstructor.accounttype !== 'Instructor'){
+            return res.json({
+                success:false,
+                message: "Instructor Details Not Found",
+            })
+        }
+        console.log(isInstructor)
+        const validcategory=await Category.findOne({_id:category});
+        if(!validcategory){
+            return res.status(400).json({
+                success:false,
+                message:"Category is Not Found"
+            })
+        }
+        console.log(validcategory)
+        console.log(thumbnail)
+        const image=await imagetocloudinary(thumbnail,process.env.FOLDER_NAME);
+        console.log(image)
+        const newcourse=await Course.create({
+            title,
+            description,
+            whatyouwilllearns,
+            price,
+            category:validcategory._id,
+            tags,
+            instructorname:userid,
+            thumbnail:image.secure_url,
+            status:stat,
+            instructions
+
+        });
+        
+        const userupdate=await User.findByIdAndUpdate(userid,
+            {
+                $push:{course:newcourse._id}
+            },{new:true});
+        console.log(userupdate)
+        res.status(200).json({
+            success: true,
+            data: newcourse,
+            userupdate,
+            message: "Course Created Successfully",
+        })
+
+    }catch(error){
+        console.error(error)
+        res.status(500).json({
+            success: false,
+            message: "Failed to create course",
+            error: error.message,
+        })
+    }
+}
+
+exports.updateCourse=async(req,res)=>{
+    try{
+        
+        const {courseid}=req.body;
+        const course=await Course.findById(courseid);
+        const changes=req.body;
+        console.log(changes);
+        
+        if(!course){
+            return res.status(404).json({ error: "Course not found" })
+        }
+        if(req.files){
+            const thumbnail=req.files.thumbnail;
+            const response=await imagetocloudinary(thumbnail,process.env.FOLDER_NAME);
+            course.thumbnail=response.secure_url;
+            
+        }
+        for(let key in changes){
+            if(key==='tags' || key==='instructions' || key==='whatyouwilllearns'){
+                course[key]=JSON.parse(changes[key]);
+            }
+            else{
+                course[key]=changes[key];
+            }
+        }
+        await course.save();
+
+        const updatedcourse=await Course.findById(courseid)
+                                    .populate({
+                                        path:'instructorname',
+                                        populate:{
+                                            path:'additionaldetails'
+                                        }})
+                                    .populate('category')
+                                    .populate({
+                                        path:'section',
+                                        populate:{
+                                            path:'subsection'
+                                        }
+                                    }).exec()
+        
+
+        return res.status(200).json({
+            success:true,
+            message: "Course updated successfully",
+            updatedcourse
+        })
+    }catch(error){
+        console.error(error)
+        res.status(500).json({
+            success: false,
+            message: "Internal server error",
+            error: error.message,
+        })
+    }
+}
+
+exports.deleteCourse=async(req,res)=>{
+    try{
+        const {courseid}=req.body;
+        const course=await Course.findById(courseid);
+        if (!course){
+            return res.status(404).json({ message: "Course not found" })
+        }
+
+        for(let sectionId of course.section){
+            const section=await Section.findById(sectionId);
+            if(section){
+                for(let subsectionId of section.subsection){
+                    const deletedsubsec=await SubSection.findByIdAndDelete(subsectionId);
+                }
+            }
+            const deletdsection=await Section.findByIdAndDelete(sectionId);
+        }
+
+        const enrolledstudent=course.studenenrolled;
+        for(let userId of enrolledstudent){
+            const userpresent=await User.findById(userId);
+            if(userpresent){
+                await User.findByIdAndUpdate(userId,{
+                    $pull:{course:courseid}
+                })
+            }
+        }
+
+        const deletedcourse=await Course.findByIdAndDelete(courseid);
+
+        return res.status(200).json({
+            success: true,
+            message: "Course deleted successfully",
+          })
+        
+    }catch(error){
+        console.error(error)
+        return res.status(500).json({
+            success: false,
+            message: "Server error",
+            error: error.message,
+        })
+    }
+}

@@ -1,0 +1,16 @@
+import {combineReducers} from '@reduxjs/toolkit';
+
+import authReducer from '../Slicer/authSlicer';
+import cartReducer from '../Slicer/cartSlicer';
+import profileReducer from '../Slicer/profileSlicer';
+import courseReducer from '../Slicer/courseSlicer';
+
+
+const rootReducer=combineReducers({
+    auth:authReducer,
+    cart:cartReducer,
+    profile:profileReducer,
+    course:courseReducer,
+})
+
+export default rootReducer;
