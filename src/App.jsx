@@ -14,16 +14,22 @@ import Myprofile from "./component/core/Dashboard/Myprofile";
 import Setting from "./component/core/Dashboard/Setting/Setting";
 import Privateroute from "./component/core/Auth/Privateroute";
 import { Account_type } from "./utils/constant";
-import {useSelector} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
 import AddCourse from "./component/core/Dashboard/Addcourse";
 import Coursediv from "./component/core/Dashboard/InstructorCourse";
+import Editcourse from "./component/core/Dashboard/Editcourse/Editcourse";
+import Error from "./pages/Error";
+import Catalog from "./pages/Catalog";
 function App() {
-  const {user}=useSelector(state=>state.profile)
+  const {user}=useSelector(state=>state.profile);
+  
   return (
     <>
       <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
           <Routes>
+            <Route path="*" element={<Error/>}></Route>
             <Route path="/" element={<Home/>}></Route>
+            <Route path="/catalog/:catalogId" element={<Catalog/>}></Route>
             <Route path="/login" element={<Openroute><Login/></Openroute>}></Route>
             <Route path="/signup" element={<Openroute><Signup/></Openroute>}></Route>
             <Route path="/verifyemail" element={<Openroute><Verifyemail/></Openroute>}></Route>
@@ -40,6 +46,8 @@ function App() {
                     <>
                       <Route path='/dashboard/addcourse' element={<AddCourse/>}/>
                       <Route path='/dashboard/mycourse' element={<Coursediv/>}/>
+                      <Route path='/dashboard/editcourse/:courseId' element={<Editcourse/>}/>
+
                     </>
                   }
             </Route>

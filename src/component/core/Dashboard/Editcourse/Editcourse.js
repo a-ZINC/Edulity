@@ -1,18 +1,45 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import RenderSteps from '../Addcourse/RenderSteps';
 import {useDispatch,useSelector} from 'react-redux';
-import {useLocation} from 'react-router-dom';
-import {setCourse,setEditcourse} from '../../../../Slicer/courseSlicer';
+import {useLocation,useParams} from 'react-router-dom';
+import {setCourse,setEditcourse,setStep} from '../../../../Slicer/courseSlicer';
+import { getCourseDetail } from '../../../../services/operations/course';
 
 
 const Editcourse = () => {
+    const params=useParams();
     const location=useLocation();
+    const dispatch=useDispatch();
+    const {token}=useSelector(state=>state.auth);
+    const [loading, setLoading] = useState(false)
     const editcoursehandler=async()=>{
-        const course=await 
+      setLoading(true)
+      const course=await getCourseDetail({courseid:params.courseId},token);
+      console.log(course)
+      if(course){
+      dispatch(setEditcourse(true));
+      dispatch(setCourse(course));
+      }
+      setLoading(false)
     }
+    
     useEffect(()=>{
-        editcoursehandler()
-    },[])
+      editcoursehandler();
+
+      return ()=>{
+        dispatch(setCourse(null));
+        dispatch(setStep(1));
+        dispatch(setEditcourse(false));
+      }
+    },[]);
+ 
+    if(loading){
+      return (
+        <div className="grid flex-1 place-items-center">
+          <div className="spinner"></div>
+        </div>
+      )
+    }
   return (
     <>
       <div className="flex w-full items-start gap-x-6 lg:mx-20 sm:mx-10 max-sm:mx-3 max-[410px]:mx-2  ">

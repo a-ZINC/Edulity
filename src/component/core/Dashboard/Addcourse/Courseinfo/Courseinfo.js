@@ -15,6 +15,7 @@ import {createCourse,editCoursedetails} from '../../../../../services/operations
 
 const Courseinfos = () => {
     const {editcourse,course,step}=useSelector(state=>state.course);
+   
     const {token}=useSelector(state=>state.auth)
     const dispatch=useDispatch();
     const {
@@ -27,6 +28,7 @@ const Courseinfos = () => {
     const [categories,setcategories]=useState([]);
     const [loading,setloading]=useState(false);
     useEffect(()=>{
+      console.log(editcourse)
         const getcategories=async()=>{
             setloading(true);
             try{
@@ -139,7 +141,7 @@ const Courseinfos = () => {
   return (
     <form
       onSubmit={handleSubmit(onsubmit)}
-      className="space-y-8 rounded-md border-[1px] border-richblack-700 bg-richblack-800 sm:p-6 p-4 "
+      className="space-y-8 rounded-md border-[1px] border-richblack-700 bg-richblack-800 sm:p-6 p-4 max-w-[800px] "
     >
         <div className="flex flex-col space-y-2">
             <label htmlFor="title" className="text-sm text-richblack-5">Course Title <sup className="text-pink-200">*</sup></label>

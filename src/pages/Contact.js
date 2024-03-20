@@ -3,6 +3,7 @@ import ContactForm from '../component/common/ConstactForm';
 import ContactDetails from "../component/core/Contact/ContactDetails";
 import Reviewslider from "../component/common/Reviewslider";
 import Navbar from "../component/common/Navbar";
+import Footer from "../component/common/Footer";
 
 const Contact = () => {
   return (
@@ -20,6 +21,7 @@ const Contact = () => {
         </div>
       </div>
         <Reviewslider></Reviewslider>
+        <Footer/>
     </div>
   )
 }

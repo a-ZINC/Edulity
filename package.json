@@ -8,6 +8,8 @@
     "body-parser": "^1.20.2",
     "cloudinary": "^2.0.3",
     "concurrently": "^8.2.2",
+    "fast-json-stable-stringify": "^2.1.0",
+    "json-stable-stringify-without-jsonify": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
@@ -21,6 +23,8 @@
     "react-scripts": "5.0.1",
     "react-super-responsive-div": "^5.2.2",
     "react-type-animation": "^3.2.0",
+    "stable": "^0.1.8",
+    "swiper": "^11.0.7",
     "video-react": "^0.16.0",
     "web-vitals": "^2.1.4"
   },

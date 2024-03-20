@@ -13,7 +13,8 @@ const {
     UPDATE_SUBSECTION_API,
     CREATE_SUBSECTION_API,
     GET_ALL_INSTRUCTOR_COURSES_API,
-    DELETE_COURSE_API
+    DELETE_COURSE_API,
+    COURSE_DETAILS_API
 
 }=courseEndpoints;
 
@@ -189,7 +190,7 @@ export const addSubSection=async(formdata,token)=>{
 }
 
 export const fetchInstructorCourse=async(token)=>{
-    const toastid=toast.loading("Loading...");
+    
     let response
     try{
         console.log("aya")
@@ -203,7 +204,7 @@ export const fetchInstructorCourse=async(token)=>{
         console.log("GET_ALL_INSTRUCTOR_COURSES_API API ERROR............", error)
         toast.error(error.message)
     }
-    toast.dismiss(toastid)
+   
     return response?.data?.data?.course;
 }
 
@@ -225,3 +226,22 @@ export const deleteCourse=async(formdata,token)=>{
     toast.dismiss(toastid)
     return response;
 }
+export const getCourseDetail=async(formdata,token)=>{
+    
+    let response
+    try{
+        console.log(formdata)
+         response=await apiconnector('POST',COURSE_DETAILS_API,formdata,{
+            "Content-Type":"multipart/form-data",
+            Authorization:`Bearer ${token}`,
+        });
+        console.log(response?.data?.data);
+        
+    }catch(error){
+        console.log("DELETE_COURSE_API API ERROR............", error)
+        toast.error(error.message)
+    }
+    
+    return response?.data?.data;
+}
+

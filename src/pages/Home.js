@@ -12,6 +12,7 @@ import Instructors from '../component/core/homepage/Instructors';
 import Navbar from '../component/common/Navbar';
 import Explore from '../component/core/homepage/Explore';
 import Reviewslider from '../component/common/Reviewslider';
+import Footer from '../component/common/Footer';
 const Home = () => {
   return (
     <>
@@ -149,6 +150,7 @@ const Home = () => {
         <Reviewslider/>
         
       </div>
+      <Footer/>
 
     </>
   )

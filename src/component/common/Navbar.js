@@ -23,14 +23,14 @@ const Navbar = () => {
     const {totalitems}=useSelector(state=>state.cart);
     const [catalogdata,setcatalogdata]=useState(null);
     const [loading,setloading]=useState(false);
-    const [uparrow,setuparrow]=useState(catalogdata?.filter((subLink) => subLink?.courses?.length > 0).length>0);
+    const [uparrow,setuparrow]=useState(catalogdata?.filter((subLink) => subLink?.courses?.length > 0));
     async function getcatalogdata(){
         setloading(true);
         try{
             
-            const data=await apiconnector('GET',catalogData.CATALOGPAGEDATA_API)
-            
-            setcatalogdata(data.data.data)
+            const data=await apiconnector('GET',catalogData.CATALOGPAGEDATA_API_PUBLISHED)
+            console.log(data)
+            setcatalogdata(data?.data?.data);
         }catch(error){
             console.log(error);
         }
@@ -38,7 +38,17 @@ const Navbar = () => {
     }
     useEffect(()=>{
         getcatalogdata();
-    },[])
+        console.log(catalogdata)
+    },[]);
+    useEffect(()=>{
+        const temp=catalogdata?.filter((subLink) =>( subLink?.courses?.length > 0 ));
+        console.log(temp);
+        
+        setuparrow(temp);
+        
+        
+        
+    },[catalogdata])
 
   return (
     <div className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${location.pathname !== "/" ? "bg-richblack-800" : ""} transition-all duration-200`}>
@@ -66,10 +76,10 @@ const Navbar = () => {
                                 <p className='cursor-pointer flex gap-1 items-center'>{element.title} <BsChevronDown /></p>
                                 <div className='h-4 w-40 absolute top-[100%] bg-transparent z-[5]'></div>
                                 <FaCaretUp className='text-4xl absolute top-[80%] text-white bg-transparent z-10 scale-0 transition-all duration-150  group-hover:scale-100 '/>
-                                <div className=' absolute w-60 top-[160%] left-[-30%] z-10 scale-0 transition-all duration-150 group-hover:scale-100 origin-top rounded-lg bg-richblack-5 p-2 text-richblack-900'>
+                                <div className=' absolute flex flex-col w-60 top-[160%] left-[-30%] z-10 scale-0 transition-all duration-150 group-hover:scale-100 origin-top rounded-lg bg-richblack-5 p-2 text-richblack-900'>
                                     {uparrow?
-                                    (catalogdata?.map((cat,ind)=>{
-                                        return <div key={ind} className='px-4 py-2 hover:bg-richblack-50 rounded-lg bg-transparent'>{cat.name}</div>
+                                    (uparrow?.map((cat,ind)=>{
+                                        return <Link key={ind} to={`/catalog/${cat.name.split(' ').join('-')}`} className='px-4 py-2 hover:bg-richblack-50 rounded-lg bg-transparent'>{cat.name}</Link>
                                     })):(<div className='px-4 py-2 hover:bg-richblack-50 rounded-lg bg-transparent'>No Catalog Found</div>)
                                 }</div>
                             </div>

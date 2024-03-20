@@ -7,7 +7,7 @@ import { RiDeleteBin6Line } from "react-icons/ri"
 import { RxDropdownMenu } from "react-icons/rx";
 import {deleteSection,deleteSubSection} from '../../../../../services/operations/course';
 import { setCourse } from '../../../../../Slicer/courseSlicer';
-import { useEffect } from 'react';
+import { useEffect,useRef } from 'react';
 import SubsectionModal from './SubsectionModal';
 import ConfirmationModal from '../../../../common/Modal';
 
@@ -21,7 +21,7 @@ const Nestedview = ({handleEditSectionName}) => {
     const [viewSubSection,setViewSubSection]=useState(null);
     const [editSubSection,setEditSubSection]=useState(null);
     const [ConfirmationModals,setConfirmationModals]=useState(null);
-    
+    const ref=useRef();
    
     const handleDeleteSection=async(id)=>{
         setloading(true);
@@ -35,6 +35,9 @@ const Nestedview = ({handleEditSectionName}) => {
     }
     useEffect(()=>{
         console.log(course)
+        if(ref.current){
+          console.log(ref.current)
+        }
     },[course]);
     const handleDeleteSubSection=async(sectionid,subsectionid)=>{
         setloading(true);
@@ -57,8 +60,8 @@ const Nestedview = ({handleEditSectionName}) => {
     <div className="rounded-lg bg-richblack-700 py-4 px-8">
         {
             course?.section.map((sec,ind)=>(
-                <details key={sec?._id} open >
-                    <summary className={`flex cursor-pointer items-center justify-between ${!(ind===course?.section.length-1) && 'border-b-2'} border-b-richblack-600 py-3`}>
+                <details key={sec?._id} open={ind===0} ref={ref} >
+                    <summary className={`flex cursor-pointer items-center justify-between ${!(ind===course?.section.length-1) && ref.current?ref.current.target.open && 'border-b-2':'' } border-b-richblack-600 py-3`}>
                         <div className="flex items-center gap-x-3">
                             <RxDropdownMenu className="text-2xl text-richblack-50" />
                             <p className="font-semibold text-richblack-50">

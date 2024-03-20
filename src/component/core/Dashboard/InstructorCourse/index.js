@@ -12,6 +12,7 @@ import {useNavigate} from 'react-router-dom';
 import dateformatter from '../../../../utils/dateformatter';
 import { Publish_type } from '../../../../utils/constant';
 import ConfirmationModal from '../../../common/Modal';
+import { setEditcourse } from '../../../../Slicer/courseSlicer';
 
 const Coursediv = () => {
     const {token}=useSelector(state=>state.auth);
@@ -19,7 +20,7 @@ const Coursediv = () => {
     const dispatch=useDispatch();
     const [loading,setloading]=useState(false);
     const navigate=useNavigate();
-    const TRUNCATE_LENGTH=40;
+    const TRUNCATE_LENGTH=30;
     const [ConfirmationModals,setConfirmationModals]=useState(null)
     const fetchcourse=async()=>{
         setloading(true)
@@ -47,7 +48,14 @@ const Coursediv = () => {
     }
     useEffect(()=>{
         fetchcourse()
-    },[])
+    },[]);
+    if(loading){
+      return (
+        <div className="grid flex-1 place-items-center">
+          <div className="spinner"></div>
+        </div>
+      )
+    }
   return (
     <><div className='w-full flex flex-col justify-center items-center mt-5 max-md:mr-2 '>
       <div className="mb-14 flex items-center justify-between w-11/12 ">
@@ -61,7 +69,7 @@ const Coursediv = () => {
         </IconBtn>
       </div>
       <div className="rounded-xl border border-richblack-800 min-[470px]:w-11/12 w-full ">
-        <div className='sm:block hidden'>
+        <div className='md:block hidden'>
           <div className="flex gap-10 rounded-t-md border-b border-b-richblack-800 px-6  py-2 ">
             <div className="flex-1 text-left text-sm font-medium uppercase text-richblack-100">
               Courses
@@ -89,13 +97,13 @@ const Coursediv = () => {
             courses?.map((course) => (
               <div
                 key={course._id}
-                className="flex sm:flex-row flex-col gap-x-10 border-b border-richblack-800 px-6 py-8"
+                className="flex md:flex-row flex-col gap-x-10 border-b border-richblack-800 px-6 py-8"
               >
                 <div className="flex lg:flex-row flex-col flex-1 gap-4">
                   <img
                     src={course?.thumbnail}
                     alt={course?.title}
-                    className=" aspect-[4/3] min-w-[9rem] sm:w-[17rem] w-full rounded-lg object-cover"
+                    className=" aspect-[4/3]  md:w-[17rem] w-full rounded-lg object-cover"
                   />
                   <div className="flex flex-col lg:justify-between max-lg:gap-2">
                     <p className="text-lg font-semibold text-richblack-5">
@@ -128,7 +136,7 @@ const Coursediv = () => {
                     )}
                   </div>
                 </div>
-                <div className='flex gap-10 max-sm:justify-between max-sm:items-center max-sm:mt-5'>
+                <div className='flex gap-12 max-md:justify-between max-md:items-center max-md:mt-5'>
                 <div className="text-sm  font-medium text-richblack-100">
                   2hr 30min
                 </div>

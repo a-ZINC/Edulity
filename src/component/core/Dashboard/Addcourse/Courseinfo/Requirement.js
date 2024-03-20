@@ -36,7 +36,9 @@ export default function RequirementsField({
     
   }, [requirementsList])
 
-  const handleAddRequirement = () => {
+  const handleAddRequirement = (e) => {
+    
+    console.log(e);
     if (requirement) {
       setRequirementsList([...requirementsList, requirement])
       setRequirement("")
@@ -62,6 +64,7 @@ export default function RequirementsField({
           onChange={(e) => setRequirement(e.target.value)}
           className="form-style w-full"
           placeholder={placeholder}
+          onKeyDown={(e)=>{if(e.key==='Enter'){e.preventDefault(); handleAddRequirement()}}}
         />
         <button
           type="button"

@@ -5,6 +5,7 @@ const SubSection=require("../model/subsection")
 const { findById } = require('../model/user');
 const {imagetocloudinary}=require("../utils/imageuploader");
 const User=require('../model/user');
+const mongoose=require('mongoose')
 require('dotenv').config();
 
 exports.courseCreate = async(req,res) =>{
@@ -42,10 +43,9 @@ exports.courseCreate = async(req,res) =>{
                 message:"Category is Not Found"
             })
         }
-        console.log(validcategory)
-        console.log(thumbnail)
+        
         const image=await imagetocloudinary(thumbnail,process.env.FOLDER_NAME);
-        console.log(image)
+        
         const newcourse=await Course.create({
             title,
             description,
@@ -55,7 +55,7 @@ exports.courseCreate = async(req,res) =>{
             tags,
             instructorname:userid,
             thumbnail:image.secure_url,
-            status:stat,
+            status,
             instructions
 
         });
@@ -64,14 +64,21 @@ exports.courseCreate = async(req,res) =>{
             {
                 $push:{course:newcourse._id}
             },{new:true});
-        console.log(userupdate)
+       
+        
+      
+        const categoryupdt=await Category.findByIdAndUpdate(newcourse.category,
+                {
+                    $push:{courses:newcourse._id}
+                }
+        ,{new:true})
+        console.log(categoryupdt);
         res.status(200).json({
             success: true,
             data: newcourse,
             userupdate,
             message: "Course Created Successfully",
-        })
-
+        });
     }catch(error){
         console.error(error)
         res.status(500).json({
@@ -214,22 +221,23 @@ exports.getInstructorCourse=async(req,res)=>{
 
 exports.getCourseDetail=async(req,res)=>{
     try{
-        const courseid=req.user.id;
-        console.log(courseid);
-        const user=await User.findById(userid);
-       
-        if(!user){
+        const {courseid}=req.body;
+        const userid=req.user.id;
+        const course=await Course.findOne({_id:courseid}).populate('instructorname').exec();
+        console.log(course);
+        
+        if(course?.instructorname._id != userid){
             return res.status(404).json({
                 success:false,
-                message:"User not Found!!"
+                message:"Edit Course Denied!"
             })
         }
-        const courses=await User.findById({_id:userid},{course:1,_id:0}).populate('course').exec();
-        console.log(courses)           
+        const coursedetail=await Course.findById(courseid)
+                                             
         return res.status(200).json({
             success:true,
             message:"Course fetched!",
-            data:courses
+            data:coursedetail
         })
     }catch(error){
         return res.status(500).json({

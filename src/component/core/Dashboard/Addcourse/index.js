@@ -1,9 +1,29 @@
-import RenderSteps from "./RenderSteps"
+import { useEffect, useState } from "react"
+import RenderSteps from "./RenderSteps";
+import {setCourse,setEditcourse,setStep} from '../../../../Slicer/courseSlicer';
+import {useSelector,useDispatch} from 'react-redux';
 
 export default function AddCourse() {
+  const dispatch=useDispatch();
+  const[loading,setloading]=useState(false)
+  useEffect(()=>{
+    setloading(true)
+        dispatch(setCourse(null));
+        dispatch(setStep(1));
+        dispatch(setEditcourse(false));
+        setloading(false)
+  },[])
+
+  if(loading){
+    return (
+      <div className="grid flex-1 place-items-center">
+        <div className="spinner"></div>
+      </div>
+    )
+  }
   return (
     <>
-      <div className="flex w-full items-start gap-x-6 lg:mx-20 sm:mx-10 max-sm:mx-3 max-[410px]:mx-2  ">
+      <div className="flex w-full  items-start gap-x-6 lg:mx-20 sm:mx-10 max-sm:mx-3 max-[410px]:mx-2  ">
         <div className="flex flex-1 flex-col">
           <h1 className="mb-14 text-3xl font-medium text-richblack-5">
             Add Course

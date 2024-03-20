@@ -8,6 +8,7 @@ import Foundingstory from '../assets/Images/FoundingStory.png';
 import Learninggrid from '../component/core/about/Learninggrid';
 import ConstactForm from '../component/common/ConstactForm';
 import Reviewslider from '../component/common/Reviewslider';
+import Footer from '../component/common/Footer';
 const Stats = [
   { count: "5K", label: "Active Students" },
   { count: "10+", label: "Mentors" },
@@ -145,6 +146,7 @@ const About = () => {
       </div>
 
       <Reviewslider/>
+      <Footer/>
     </>
   )
 }
