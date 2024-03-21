@@ -20,6 +20,7 @@ import Coursediv from "./component/core/Dashboard/InstructorCourse";
 import Editcourse from "./component/core/Dashboard/Editcourse/Editcourse";
 import Error from "./pages/Error";
 import Catalog from "./pages/Catalog";
+import Cart from "./component/core/Dashboard/Cart";
 function App() {
   const {user}=useSelector(state=>state.profile);
   
@@ -48,6 +49,12 @@ function App() {
                       <Route path='/dashboard/mycourse' element={<Coursediv/>}/>
                       <Route path='/dashboard/editcourse/:courseId' element={<Editcourse/>}/>
 
+                    </>
+                  }
+                  {
+                    user && Account_type.student===user.accounttype &&
+                    <>
+                      <Route path='/dashboard/cart' element={<Cart/>}/>
                     </>
                   }
             </Route>
