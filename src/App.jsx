@@ -21,6 +21,7 @@ import Editcourse from "./component/core/Dashboard/Editcourse/Editcourse";
 import Error from "./pages/Error";
 import Catalog from "./pages/Catalog";
 import Cart from "./component/core/Dashboard/Cart";
+import CourseDetailed from "./pages/CourseDetail";
 function App() {
   const {user}=useSelector(state=>state.profile);
   
@@ -31,6 +32,7 @@ function App() {
             <Route path="*" element={<Error/>}></Route>
             <Route path="/" element={<Home/>}></Route>
             <Route path="/catalog/:catalogId" element={<Catalog/>}></Route>
+            <Route path="/courses/:courseId" element={<CourseDetailed/>}></Route>
             <Route path="/login" element={<Openroute><Login/></Openroute>}></Route>
             <Route path="/signup" element={<Openroute><Signup/></Openroute>}></Route>
             <Route path="/verifyemail" element={<Openroute><Verifyemail/></Openroute>}></Route>

@@ -127,7 +127,8 @@ module.exports = {
     extend: {
       maxWidth: {
         maxContent: "1260px",
-        maxContentTab: "650px"
+        maxContentTab: "650px",
+        maxtab:"1024px"
       },
       fontSize: {
         clamphead: "clamp(0.75rem, 3.5vw, 1.125rem)",

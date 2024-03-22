@@ -1,9 +1,16 @@
 export const hourminsec = (sec)=>{
-    const time=new Date(100000000000 + sec*1000);
-    const starttime=new Date(100000000000);
-    const hour=time.getHours()-starttime.getHours();
-    const minute=time.getMinutes()-starttime.getMinutes();
-    const second=time.getSeconds()-starttime.getSeconds();
+    let hour=0;
+    let minute=0;
+    let second=0;
+    if(sec>=3600){
+        hour=Math.round(sec/3600);
+        sec-=3600
+    }
+    if(sec>=60){
+        minute=Math.round(sec/60);
+        sec-=60
+    }
+    second=sec;
     const hms={
         hour:hour,
         minute:minute,

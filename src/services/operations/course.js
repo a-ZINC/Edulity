@@ -14,7 +14,8 @@ const {
     CREATE_SUBSECTION_API,
     GET_ALL_INSTRUCTOR_COURSES_API,
     DELETE_COURSE_API,
-    COURSE_DETAILS_API
+    COURSE_DETAILS_API,
+    COURSE_UNAUTHENTICATED_COURSE
 
 }=courseEndpoints;
 
@@ -243,5 +244,21 @@ export const getCourseDetail=async(formdata,token)=>{
     }
     
     return response?.data?.data;
+}
+
+export const getUnauthenticatedCourseDetail=async(formdata,token)=>{
+    
+    let response
+    try{
+        console.log(formdata);
+        response=await apiconnector('POST',COURSE_UNAUTHENTICATED_COURSE,{courseid:formdata.courseId});
+        console.log(response?.data);
+        
+    }catch(error){
+        console.log("DELETE_COURSE_API API ERROR............", error)
+        toast.error(error.message)
+    }
+    
+    return response?.data;
 }
 

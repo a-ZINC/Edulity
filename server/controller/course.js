@@ -224,7 +224,7 @@ exports.getCourseDetail=async(req,res)=>{
         const {courseid}=req.body;
         const userid=req.user.id;
         const course=await Course.findOne({_id:courseid}).populate('instructorname').exec();
-        console.log(course);
+        
         
         if(course?.instructorname._id != userid){
             return res.status(404).json({
@@ -238,6 +238,33 @@ exports.getCourseDetail=async(req,res)=>{
             success:true,
             message:"Course fetched!",
             data:coursedetail
+        })
+    }catch(error){
+        return res.status(500).json({
+            success:false,
+            message:error.message
+        })
+    }
+}
+
+exports.getUnauthorisedCourseDetail=async(req,res)=>{
+    try{
+        const {courseid}=req.body;
+        const course=await Course.findOne({_id:courseid}).populate('instructorname')
+                                                .populate({
+                                                    path:'section',
+                                                    populate:{
+                                                        path:'subsection'
+                                                    }
+                                                })
+                                                .populate('ratingandreview')
+                                                .populate('category')
+                                                .exec();
+                                             
+        return res.status(200).json({
+            success:true,
+            message:"Course data fetched!",
+            data:course,
         })
     }catch(error){
         return res.status(500).json({
