@@ -19,7 +19,7 @@ const CourseCardBuynow = ({course,buycourse,addToCart,getCourselength}) => {
     
         <>
       <div
-        className={`flex flex-col gap-4 rounded-md bg-richblack-700 p-4 text-richblack-5`}
+        className={`flex flex-col gap-4 rounded-md bg-richblack-700 p-4 text-richblack-5 `}
       >
         
         <img
@@ -46,7 +46,7 @@ const CourseCardBuynow = ({course,buycourse,addToCart,getCourselength}) => {
                 : "Buy Now"}
             </button>
             {(!user || !course?.studentenrolled?.includes(user?._id)) && (
-              <button onClick={addToCart} className="blackButton">
+              <button onClick={()=>addToCart()} className="blackButton">
                 Add to Cart
               </button>
             )}

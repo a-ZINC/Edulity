@@ -21,8 +21,9 @@ import { IoIosArrowDown } from "react-icons/io";
 import { hourminsec } from '../utils/Minsec';
 import Markdown from 'react-markdown';
 import remarkGfm from "remark-gfm";
-
-
+import CourseAccordionBar from '../component/core/Course/CourseAccordionBar';
+import Footer from '../component/common/Footer';
+import { FaSmoking } from "react-icons/fa6";
 
 const CourseDetailed = () => {
     const {token}=useSelector((state)=>state.auth);
@@ -34,11 +35,26 @@ const CourseDetailed = () => {
     const [avgrating,setavgrating]=useState(null);
     const [ConfirmationModals,setConfirmationModals]=useState(null);
     const [width,setwidth]=useState(null);
-    const [show,setshow]=useState(false)
+    const [show,setshow]=useState(false);
+    const [showdesc,setshowdesc]=useState(false)
     const courseId=useParams();
-    const [isActive,setIsActive]=useState(false);
     const [duartion,setduration]=useState(0);
-    const navigate=useNavigate()
+    const navigate=useNavigate();
+
+    const CustomHeading1 = ({ children }) => <h1 className=' bg-gradient-to-r from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] text-transparent bg-clip-text font-bold mb-4 size-md'>{children}</h1>;
+    const CustomList = ({ children }) => <ol className='my-11'>{children}</ol>;
+    const CustomListItem = ({ children }) => <li className='mb-2 italic '>{children}</li>;
+    const strng = ({ children }) => <strong className=' bg-gradient-to-r from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] text-transparent bg-clip-text font-bold'>{children}</strong>;
+    const para = ({ children }) => <p className=' text-richblack-200 mb-2'>{children}</p>;
+    const [isActive, setIsActive] = useState(Array(0))
+    const handleActive = (id) => {
+        // console.log("called", id)
+        setIsActive(
+        !isActive.includes(id)
+            ? isActive.concat([id])
+            : isActive.filter((e) => e != id)
+        )
+    }
 
     const getCourseData=async()=>{
         
@@ -56,7 +72,7 @@ const CourseDetailed = () => {
     
     const checkAddtoCart=()=>{
         const res=cart.filter((core,ind)=>core._id===courseId);
-        return res;
+        return ;
     }
 
     useEffect(()=>{
@@ -72,10 +88,12 @@ const CourseDetailed = () => {
         }
     },[])
     useEffect(()=>{
+        
         getCourseData();
         
     },[courseId]);
     useEffect(()=>{
+        console.log(course?.data?.description)
         const avgrate=GetAvgRating(course?.data?.ratingandreview);
         setavgrating(avgrate)
     },[course]);
@@ -122,8 +140,11 @@ const CourseDetailed = () => {
             toast.error("You are an Instructor. You can't buy a course.")
             return
         }
+        
         if(token){
+            
             dispatch(addtocart(course?.data));
+            
             return;
         }
 
@@ -164,7 +185,7 @@ const CourseDetailed = () => {
                             {course?.data?.title}
                             </p>
                         </div>
-                        <div className='text-sm text-richblack-400'><Markdown remarkPlugins={[remarkGfm]}>{course?.data?.description}</Markdown></div>
+                        <div className='text-sm text-richblack-400'>{course?.data?.description?.replace('#','').replace('1.','').replace('~','').substr(0,300)}{`...`}</div>
                         <div className="text-md flex flex-wrap items-center gap-2">
                             <span className="text-yellow-25">{avgrating}</span>
                             <RatingStar Review_Count={avgrating} Star_Size={24} />
@@ -230,7 +251,7 @@ const CourseDetailed = () => {
                                 )
                             }
                             {
-                                width<1024 && <div className='mt-5 flex gap-2 items-center text-richblue-100 absolute bottom-3 translate-x-7' onClick={()=>setshow(!show)}>Show More <p className=' text-sm'><IoIosArrowDown /></p> </div>
+                                width<1024 && <div className='mt-5 flex gap-2 items-center text-richblue-200 absolute bottom-3 translate-x-7' onClick={()=>setshow(!show)}>Show {show?'less':'more'} <p className=' text-sm'><IoIosArrowDown /></p> </div>
                             }
                     </div>
                 </div>
@@ -261,9 +282,73 @@ const CourseDetailed = () => {
                 </div>
                 </div>
                 </div>
+
+                <div className="py-4">
+                {course?.data?.section?.map((sec, index) => (
+                    <CourseAccordionBar
+                    sec={sec}
+                    key={index}
+                    isActive={isActive}
+                    handleActive={handleActive}
+                    />
+                ))}
+            </div>
+
+            <div className={`mt-4 py-4 flex flex-col gap-3`}>
+              <p className="text-[28px] font-semibold">Description</p>
+              <div className={`${showdesc?'line-clamp-none':'line-clamp-[7]'}`}>
+                            <Markdown 
+                                remarkPlugins={[remarkGfm]}
+                                components={{
+                                    h1: CustomHeading1,
+                                    ol: CustomList,
+                                    li: CustomListItem,
+                                    strong:strng,
+                                    p:para
+                                  }}
+                            >
+                            {course?.data?.description}
+                            </Markdown>
+                </div>
+              <div className='flex gap-2 items-center text-richblue-200 cursor-pointer' onClick={(()=>setshowdesc(!showdesc))}>Show {showdesc?'less':'more'} <p className=' text-sm'><IoIosArrowDown /></p></div>
+              
+            </div>
+
+
+            <div className=" mt-4 py-4 flex flex-col gap-3">
+              <p className="text-[28px] font-semibold">Requirements</p>
+              <div className=' text-richblack-200 flex flex-col gap-1 '>
+              {
+                course?.data?.instructions?.map((req,ind)=>(
+                    <div className='flex items-center gap-3'><p><FaSmoking /></p>{req}</div>
+                ))
+              }
+              </div>
+            </div>
+
+            <div className="mb-12 mt-4 py-4">
+              <p className="text-[28px] font-semibold">Author</p>
+              <div className="flex items-center gap-4 py-2">
+                <img
+                  src={
+                    course?.data?.instructorname?.image
+                      ? course?.data?.instructorname?.image
+                      : `https://api.dicebear.com/7.x/bottts/svg?seed=${course?.data?.instructorname?._id}`
+                  }
+                  alt="Author"
+                  className="h-14 w-14 rounded-full object-cover"
+                />
+                <p className="text-lg">{`${pascalCase(course?.data?.instructorname?.firstname)} ${pascalCase(course?.data?.instructorname?.lastname)}`}</p>
+              </div>
+              <p className="text-richblack-50">
+                {course?.data?.instructorname?.additionaldetails?.about}
+              </p>
+            </div>
+
+            
             </div>
           </div>
-
+        <Footer/>
 
         {ConfirmationModals && <ConfirmationModal ConfirmationModals={ConfirmationModals} />}
     </>

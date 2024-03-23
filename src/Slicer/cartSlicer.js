@@ -19,9 +19,10 @@ const cartSlice=createSlice({
     reducers:{
         addtocart:(state,action)=>{
             const course=action.payload;
+            console.log(state.cart.findIndex((val)=>val._id===course._id))
             const courseid=state.cart.findIndex((val)=>val._id===course._id);
 
-            if(courseid){
+            if(courseid!==-1){
                 toast.error('Already in Cart!')
                 return
             }

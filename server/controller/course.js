@@ -250,11 +250,17 @@ exports.getCourseDetail=async(req,res)=>{
 exports.getUnauthorisedCourseDetail=async(req,res)=>{
     try{
         const {courseid}=req.body;
-        const course=await Course.findOne({_id:courseid}).populate('instructorname')
+        const course=await Course.findOne({_id:courseid})
                                                 .populate({
                                                     path:'section',
                                                     populate:{
                                                         path:'subsection'
+                                                    }
+                                                })
+                                                .populate({
+                                                    path:'instructorname',
+                                                    populate:{
+                                                        path:'additionaldetails'
                                                     }
                                                 })
                                                 .populate('ratingandreview')

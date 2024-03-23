@@ -9,15 +9,15 @@ export default function RenderCartCourses() {
   const { cart } = useSelector((state) => state.cart)
   const dispatch = useDispatch()
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col max-w-maxContent min-w-[150px] w-full">
       {cart.map((course, indx) => (
         <div
           key={course._id}
-          className={`flex w-full flex-wrap items-start justify-between gap-6 ${
+          className={`flex flex-wrap items-start max-sm:flex-col h-full  ${
             indx !== cart.length - 1 && "border-b border-b-richblack-400 pb-6"
           } ${indx !== 0 && "mt-6"} `}
         >
-          <div className="flex flex-1 flex-col gap-4 xl:flex-row">
+          <div className="flex flex-1 flex-col gap-4 xl:flex-row ">
             <img
               src={course?.thumbnail}
               alt={course?.courseName}
@@ -47,7 +47,7 @@ export default function RenderCartCourses() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-end space-y-2">
+          <div className="flex flex-col sm:items-center space-y-2 max-sm:flex-row-reverse justify-between max-sm:w-full">
             <button
               onClick={() => dispatch(removefromcart(course._id))}
               className="flex items-center gap-x-1 rounded-md border border-richblack-600 bg-richblack-700 py-3 px-[12px] text-pink-200"
