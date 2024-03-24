@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import copy from "copy-to-clipboard";
 import {toast} from 'react-hot-toast';
 import { BsFillCaretRightFill } from "react-icons/bs"
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import {buycarddata} from '../../../data/Buycard'
 
-const CourseCardBuynow = ({course,buycourse,addToCart,getCourselength}) => {
+const CourseCardBuynow = ({course,buynow,addToCart,getCourselength}) => {
   const {user}=useSelector(state=>state.profile);
   const navigate=useNavigate();
 
@@ -15,6 +15,10 @@ const CourseCardBuynow = ({course,buycourse,addToCart,getCourselength}) => {
     copy(window.location.href)
     toast.success("Link copied to clipboard")
 }
+
+useEffect(()=>{
+  console.log(course,"   ",buynow)
+},[])
   return (
     
         <>
@@ -36,16 +40,16 @@ const CourseCardBuynow = ({course,buycourse,addToCart,getCourselength}) => {
             <button
               className="yellowButton"
               onClick={
-                user && course?.studentenrolled?.includes(user?._id)
+                user && course?.studenenrolled?.includes(user?._id)
                   ? () => navigate("/dashboard/enrolledcourses")
-                  : buycourse
+                  : ()=>buynow()
               }
             >
-              {user && course?.studentenrolled?.includes(user?._id)
+              {user && course?.studenenrolled?.includes(user?._id)
                 ? "Go To Course"
                 : "Buy Now"}
             </button>
-            {(!user || !course?.studentenrolled?.includes(user?._id)) && (
+            {(!user || !course?.studenenrolled?.includes(user?._id)) && (
               <button onClick={()=>addToCart()} className="blackButton">
                 Add to Cart
               </button>

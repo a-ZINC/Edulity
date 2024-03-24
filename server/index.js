@@ -8,6 +8,7 @@ const userRoutes=require('./routes/user');
 const courseRoutes=require('./routes/course');
 const contactRoute=require('./routes/contact');
 const profileRoute=require('./routes/profile');
+const paymentRoute=require('./routes/payment');
 const fileUpload=require('express-fileupload');
 const { courseCreate } = require("./controller/course");
 require("dotenv").config();
@@ -42,6 +43,7 @@ app.use('/api/v1/auth',userRoutes);
 app.use('/api/v1/course',courseRoutes);
 app.use('/api/v1/contact',contactRoute);
 app.use('/api/v1/profile',profileRoute);
+app.use('/api/v1/payment',paymentRoute);
 
 
 app.get("/", (req, res) => {

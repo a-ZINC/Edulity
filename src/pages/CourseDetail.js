@@ -24,11 +24,13 @@ import remarkGfm from "remark-gfm";
 import CourseAccordionBar from '../component/core/Course/CourseAccordionBar';
 import Footer from '../component/common/Footer';
 import { FaSmoking } from "react-icons/fa6";
+import { createorder } from '../services/operations/payment';
 
 const CourseDetailed = () => {
     const {token}=useSelector((state)=>state.auth);
     const {user}=useSelector(state=>state.profile);
     const {cart}=useSelector(state=>state.cart);
+    const {paymentloading}=useSelector(state=>state.course);
     const dispatch=useDispatch();
     const[loading,setloading]=useState((false));
     const [course,setcourse]=useState(null);
@@ -70,10 +72,6 @@ const CourseDetailed = () => {
         setloading(false);
     }
     
-    const checkAddtoCart=()=>{
-        const res=cart.filter((core,ind)=>core._id===courseId);
-        return ;
-    }
 
     useEffect(()=>{
         function listener(e){
@@ -97,9 +95,6 @@ const CourseDetailed = () => {
         const avgrate=GetAvgRating(course?.data?.ratingandreview);
         setavgrating(avgrate)
     },[course]);
-    useEffect(()=>{
-        checkAddtoCart();
-    },[cart]);
 
     const [totalNoOfLectures, setTotalNoOfLectures] = useState(0)
     useEffect(() => {
@@ -157,12 +152,31 @@ const CourseDetailed = () => {
             btn2Handler: () => setConfirmationModals(null),
         })
     }
-    const buynow=()=>{
-
+    const buynow=async()=>{
+        if (token) {
+            await createorder(token, [courseId], user, navigate, dispatch)
+            return
+          }
+          setConfirmationModals({
+            text1: "You are not logged in!",
+            text2: "Please login to Purchase Course.",
+            btn1Text: "Login",
+            btn2Text: "Cancel",
+            btn1Handler: () => navigate("/login"),
+            btn2Handler: () => setConfirmationModals(null),
+          })
     }
     const getCourselength=()=>{
 
     }
+    if (paymentloading) {
+        // console.log("payment loading")
+        return (
+          <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
+            <div className="spinner"></div>
+          </div>
+        )
+      }
   return (
     <>
         <Navbar/>
@@ -213,7 +227,7 @@ const CourseDetailed = () => {
                         <p className="space-x-3 pb-4 text-3xl font-semibold text-richblack-5">
                             Rs. {course?.data?.price}
                         </p>
-                        <button className="yellowButton">
+                        <button className="yellowButton" onClick={()=>buynow()}>
                             Buy Now
                         </button>
                         <button className="blackButton">Add to Cart</button>

@@ -9,7 +9,7 @@ const mailsender = async(email,title,body) =>{
                 pass:process.env.MAIL_PASS
             }
         });
-
+        console.log('hiii')
         let info=await transpoter.sendMail({
             from: 'Edulity | Powered by aZinc',
             to:`${email}`,

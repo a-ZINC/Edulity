@@ -1,6 +1,6 @@
 require('dotenv').config();
 const link=process.env.LOGO_URL
-exports.courseEnrollmentEmail = (courseName, name) => {
+exports.courseEnrollmentEmail = (title, name) => {
     return `<!DOCTYPE html>
     <html>
     
@@ -74,11 +74,11 @@ exports.courseEnrollmentEmail = (courseName, name) => {
             <div class="message">Course Registration Confirmation</div>
             <div class="body">
                 <p>Dear ${name},</p>
-                <p>You have successfully registered for the course <span class="highlight">"${courseName}"</span>. We
+                <p>You have successfully registered for the course <span class="highlight">"${title}"</span>. We
                     are excited to have you as a participant!</p>
                 <p>Please log in to your learning dashboard to access the course materials and start your learning journey.
                 </p>
-                <a class="cta" href="https://studynotion-edtech-project.vercel.app/dashboard">Go to Dashboard</a>
+                <a class="cta" href="">Go to Dashboard</a>
             </div>
             <div class="support">If you have any questions or need further assistance, please feel free to reach out to us
                 at

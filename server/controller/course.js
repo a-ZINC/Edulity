@@ -151,6 +151,7 @@ exports.deleteCourse=async(req,res)=>{
         const {courseid}=req.body;
         console.log(courseid)
         const course=await Course.findById(courseid);
+        console.log(course)
         if (!course){
             return res.status(404).json({ message: "Course not found" })
         }
@@ -166,16 +167,20 @@ exports.deleteCourse=async(req,res)=>{
         }
 
         const enrolledstudent=course.studenenrolled;
+        console.log(enrolledstudent,"hdhdkdkd")
         for(let userId of enrolledstudent){
             const userpresent=await User.findById(userId);
+            console.log(userpresent,courseid,"dhjgdsjfkdszd")
             if(userpresent){
-                await User.findByIdAndUpdate(userId,{
+                const resp=await User.findByIdAndUpdate(userId,{
                     $pull:{course:courseid}
                 })
+                console.log(resp,"jhjhfjdhdvhhjhuehuehuehue")
             }
         }
 
         const deletedcourse=await Course.findByIdAndDelete(courseid);
+
 
         return res.status(200).json({
             success: true,

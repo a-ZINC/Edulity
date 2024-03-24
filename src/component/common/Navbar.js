@@ -77,7 +77,7 @@ const Navbar = () => {
                                 <div className='h-4 w-40 absolute top-[100%] bg-transparent z-[5]'></div>
                                 <FaCaretUp className='text-4xl absolute top-[80%] text-white bg-transparent z-10 scale-0 transition-all duration-150  group-hover:scale-100 '/>
                                 <div className=' absolute flex flex-col w-60 top-[160%] left-[-30%] z-10 scale-0 transition-all duration-150 group-hover:scale-100 origin-top rounded-lg bg-richblack-5 p-2 text-richblack-900'>
-                                    {uparrow?
+                                    {uparrow && uparrow.length>0?
                                     (uparrow?.map((cat,ind)=>{
                                         return <Link key={ind} to={`/catalog/${cat.name.split(' ').join('-')}`} className='px-4 py-2 hover:bg-richblack-50 rounded-lg bg-transparent'>{cat.name}</Link>
                                     })):(<div className='px-4 py-2 hover:bg-richblack-50 rounded-lg bg-transparent'>No Catalog Found</div>)
