@@ -4,7 +4,7 @@ import {useParams} from 'react-router-dom';
 import {getCategoryCoursePage,getCategory} from '../services/operations/catalogPage';
 import Navbar from '../component/common/Navbar';
 import CourseSlider from '../component/core/Catalog/CourseSlider';
-import Course_Card from '../component/core/Catalog/Course_Card';
+import CourseCards from '../component/core/Catalog/CourseCards';
 import Footer from '../component/common/Footer';
 
 const Catalog = () => {
@@ -57,7 +57,8 @@ const Catalog = () => {
   return (
     <>  
         <Navbar></Navbar>
-        <div className=" box-content bg-richblack-800 px-4">
+        <div className=''>
+        <div className=" bg-richblack-800 px-4">
             
             <div className="mx-auto flex min-h-[260px] max-w-maxContentTab flex-col justify-center gap-4 lg:max-w-maxContent ">
                 <p className="text-sm text-richblack-300">
@@ -75,7 +76,7 @@ const Catalog = () => {
             </div>
         </div>
 
-        <div className=" mx-auto box-content w-full max-w-maxContentTab px-4 py-12 lg:max-w-maxContent">
+        <div className=" mx-auto max-w-maxContentTab px-4 py-12 lg:max-w-maxContent">
             <div className="section_heading">Courses to get you started</div>
             <div className="my-4 flex border-b border-b-richblack-600 text-sm">
               <p
@@ -106,7 +107,7 @@ const Catalog = () => {
             </div>
         </div>
 
-        <div className=" mx-auto box-content w-full max-w-maxContentTab px-4 py-12 lg:max-w-maxContent">
+        <div className=" mx-auto w-full max-w-maxContentTab px-4 py-12 lg:max-w-maxContent">
             <div className="section_heading">
               Top courses in {coursedata?.data?.randomcategory?.name}
             </div>
@@ -116,19 +117,19 @@ const Catalog = () => {
               />
             </div>
         </div>
-        <div className=" mx-auto box-content w-full max-w-maxContentTab px-4 py-12 lg:max-w-maxContent">
+        <div className=" mx-auto w-full max-w-maxContentTab px-4 py-12 lg:max-w-maxContent">
             <div className="section_heading">Frequently Bought</div>
             <div className="py-8">
-              <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+              <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 h-">
                 {coursedata?.data?.mostSellingCourses
                   ?.slice(0, 4)
                   .map((course, i) => (
-                    <Course_Card course={course} key={i} Height={"h-[400px]"} />
+                    <CourseCards course={course} key={i} Height={"h-[30vw]"} />
                   ))}
               </div>
             </div>
           </div>
-    
+          </div>
           <Footer />
     </>
   )

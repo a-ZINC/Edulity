@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import {buycarddata} from '../../../data/Buycard'
 
-const CourseCardBuynow = ({course,buynow,addToCart,getCourselength}) => {
+const CourseCardBuynow = ({course,buynow,addToCart,getCourselength,duration}) => {
   const {user}=useSelector(state=>state.profile);
   const navigate=useNavigate();
 
@@ -70,7 +70,7 @@ useEffect(()=>{
                 return (
                   <p className={`flex gap-2`} key={i}>
                     <BsFillCaretRightFill />
-                    <span>{item}</span>
+                    {i===0?<span>{`${duration.hour || 0}h ${duration.minute|| 0}m ${duration.second ||0}s `} {item}</span>:<span>{item}</span>}
                   </p>
                 )
               })}

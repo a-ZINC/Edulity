@@ -12,7 +12,7 @@ const CourseProgress=require('../model/courseprogress');
 exports.capturePayment=async(req,res)=>{
     const {courses}=req.body;
     const userid=req.user.id;
-    console.log(courses)
+   
     if(courses?.length===0){
         return res.json({
             success:false,
@@ -24,7 +24,7 @@ exports.capturePayment=async(req,res)=>{
 
     for(let courseid of courses){
         let individualcourse
-        console.log(courseid)
+      
         try{
             individualcourse=await Course.findById(courseid.courseId);
             console.log(individualcourse)
@@ -46,7 +46,7 @@ exports.capturePayment=async(req,res)=>{
 
             amount+=individualcourse.price;
             
-
+            console.log(amount)
         }catch(error){
             console.log(error)
             return res.status(500).json({ success: false, message: error.message })

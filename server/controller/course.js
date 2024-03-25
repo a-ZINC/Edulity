@@ -284,3 +284,41 @@ exports.getUnauthorisedCourseDetail=async(req,res)=>{
         })
     }
 }
+
+exports.getEnrolledCourse=async(req,res)=>{
+    try{
+        const userid=req.user.id;
+
+        const user=await User.findById(userid)
+                                .populate({
+                                    path:'course',
+                                    populate:{
+                                        path:'section',
+                                        populate:{
+                                            path:'subsection'
+                                        }
+                                    }
+                                })
+                                .populate('courseprogress')
+                                .exec();
+        if(!user){
+            return res.status(404).json({
+                success:false,
+                message:"User not found!"
+            })
+        }
+        console.log(user);
+
+        return res.status(200).json({
+            success:true,
+            message:"user course data fetched!",
+            data:user,
+        })
+
+    }catch(error){
+        return res.status(500).json({
+            success:false,
+            message:error.message
+        })
+    }
+}

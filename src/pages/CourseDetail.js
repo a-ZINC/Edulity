@@ -25,6 +25,7 @@ import CourseAccordionBar from '../component/core/Course/CourseAccordionBar';
 import Footer from '../component/common/Footer';
 import { FaSmoking } from "react-icons/fa6";
 import { createorder } from '../services/operations/payment';
+import getduration from '../utils/getduration';
 
 const CourseDetailed = () => {
     const {token}=useSelector((state)=>state.auth);
@@ -99,20 +100,15 @@ const CourseDetailed = () => {
     const [totalNoOfLectures, setTotalNoOfLectures] = useState(0)
     useEffect(() => {
         let lectures = 0;
-        let length = 0;
+       
         course?.data?.section?.forEach((sec) => {
         lectures += sec.subsection.length || 0;
         })
-        course?.data?.section?.forEach((sec) => {
-            sec?.subsection?.forEach((subsec)=>{
-                length += parseInt(subsec?.timeduration)
-            })
-        })
+        
         setTotalNoOfLectures(lectures);
-        const lengthres=hourminsec(length);
+        const lengthres=getduration(course)
         console.log(lengthres)
         setduration(lengthres);
-        console.log(length)
     }, [course]);
 
     
@@ -188,11 +184,12 @@ const CourseDetailed = () => {
                         <img
                             src={course?.data?.thumbnail}
                             alt="course thumbnail"
-                            className="aspect-auto w-full"
+                            className="w-full aspect-video object-cover"
+                       
                         />
                     </div>
                     <div
-                        className={`z-30 my-5 flex flex-col justify-center gap-4 py-5 text-lg text-richblack-5`}
+                        className={`z-30 my-5 w-full flex flex-col items-start gap-4 py-5 text-lg text-richblack-5`}
                         >
                         <div>
                             <p className="text-4xl font-bold text-richblack-5 sm:text-[42px]">
@@ -240,6 +237,7 @@ const CourseDetailed = () => {
                         addToCart={addToCart}
                         buynow={buynow}
                         getCourselength={getCourselength}
+                        duration={duartion}
                     />
                 </div>
             </div>
@@ -283,7 +281,7 @@ const CourseDetailed = () => {
                         {totalNoOfLectures} {`lecture(s)`}
                     </div>
                     <div className='text-xl font-semibold text-richblack-600 '>.</div>
-                    <div>{`${duartion.hour}h ${duartion.minute}m ${duartion.second}s`} total length</div>
+                    <div>{`${duartion.hour || 0}h ${duartion.minute ||0}m ${duartion.second || 0}s`} total length</div>
                     </div>
                     <div>
                     <button

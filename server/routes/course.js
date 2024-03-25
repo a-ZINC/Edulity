@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 
-const {courseCreate,updateCourse, deleteCourse,getInstructorCourse,getCourseDetail,getUnauthorisedCourseDetail}=require('../controller/course');
+const {courseCreate,updateCourse, deleteCourse,getInstructorCourse,getCourseDetail,getUnauthorisedCourseDetail,getEnrolledCourse}=require('../controller/course');
 const {auth,isInstructor,isAdmin, isStudent}=require('../middlewares/auth')
 const {createSection,updateSection,deleteSection}=require('../controller/section');
 const {createSubsection,updateSubsection,deleteSubsection}=require('../controller/subsection');
@@ -15,6 +15,7 @@ router.post('/deletecourse',auth,isInstructor,deleteCourse);
 router.get('/getinstructorcourse',auth,isInstructor,getInstructorCourse);
 router.post('/getcoursedetail',auth,isInstructor,getCourseDetail);
 router.post('/getUnauthorisedCourseDetail',getUnauthorisedCourseDetail);
+router.get('/getenrolledcourses',auth,isStudent,getEnrolledCourse);
 
 
 router.post('/createcategory',auth,isAdmin,createCategory);

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import GetAvgRating from '../../../utils/GetAvgRating';
 import RatingStar from '../../common/RatingStar';
 
-const Course_Card = ({course,height}) => {
+const CourseCards = ({course,height}) => {
     const [avgReviewCount, setAvgReviewCount] = useState(0);
     useEffect(()=>{
         console.log(course)
@@ -18,7 +18,8 @@ const Course_Card = ({course,height}) => {
             <img
               src={course?.thumbnail}
               alt="course thumnail"
-              className={`${height} w-full rounded-xl object-cover `}
+              className={`${height} aspect-video w-full rounded-xl object-cover `}
+              
             />
           </div>
           <div className="flex flex-col gap-2 px-1 py-3">
@@ -41,4 +42,4 @@ const Course_Card = ({course,height}) => {
   )
 }
 
-export default Course_Card
+export default CourseCards

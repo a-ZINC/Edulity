@@ -22,6 +22,7 @@ import Error from "./pages/Error";
 import Catalog from "./pages/Catalog";
 import Cart from "./component/core/Dashboard/Cart";
 import CourseDetailed from "./pages/CourseDetail";
+import EnrollCourse from "./component/core/Dashboard/Enrolledcourse";
 function App() {
   const {user}=useSelector(state=>state.profile);
   
@@ -57,6 +58,7 @@ function App() {
                     user && Account_type.student===user.accounttype &&
                     <>
                       <Route path='/dashboard/cart' element={<Cart/>}/>
+                      <Route path='/dashboard/enrolledcourses' element={<EnrollCourse/>}/>
                     </>
                   }
             </Route>

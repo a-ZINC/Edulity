@@ -2,7 +2,7 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Pagination,Navigation} from 'swiper/modules';
 import "swiper/css";
-import Course_Card from './Course_Card';
+import CourseCards from './CourseCards';
 
 const CourseSlider = ({Courses}) => {
   return (
@@ -22,7 +22,7 @@ const CourseSlider = ({Courses}) => {
         >
           {Courses?.map((course, i) => (
             <SwiperSlide key={i}>
-              <Course_Card  course={course} height={"h-[250px]"} />
+              <CourseCards  course={course} height={"h-[250px]"} />
             </SwiperSlide>
           ))}
         </Swiper>

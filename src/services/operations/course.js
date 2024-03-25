@@ -15,7 +15,8 @@ const {
     GET_ALL_INSTRUCTOR_COURSES_API,
     DELETE_COURSE_API,
     COURSE_DETAILS_API,
-    COURSE_UNAUTHENTICATED_COURSE
+    COURSE_UNAUTHENTICATED_COURSE,
+    GET_USER_ENROLLED_COURSES_API
 
 }=courseEndpoints;
 
@@ -262,3 +263,29 @@ export const getUnauthenticatedCourseDetail=async(formdata,token)=>{
     return response?.data;
 }
 
+
+export async function getUserEnrolledCourses(token) {
+    const toastId = toast.loading("Loading...")
+    let result = []
+    try {
+      console.log("BEFORE");
+      const response = await apiconnector(
+        "GET",
+        GET_USER_ENROLLED_COURSES_API,
+        null,
+        {
+          Authorization: `Bearer ${token}`,
+        }
+      )
+      console.log("AFTER");
+      if (!response.data.success) {
+        throw new Error(response.data.message)
+      }
+      result = response.data.data
+    } catch (error) {
+      console.log("GET_USER_ENROLLED_COURSES_API API ERROR............", error)
+      toast.error("Could Not Get Enrolled Courses")
+    }
+    toast.dismiss(toastId)
+    return result
+  }

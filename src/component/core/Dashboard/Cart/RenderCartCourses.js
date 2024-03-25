@@ -2,12 +2,14 @@ import { FaStar } from "react-icons/fa"
 import { RiDeleteBin6Line } from "react-icons/ri"
 import ReactStars from "react-rating-stars-component"
 import { useDispatch, useSelector } from "react-redux"
-
+import {createorder} from '../../../../services/operations/payment'
 import { removefromcart } from "../../../../Slicer/cartSlicer"
+import { useNavigate} from 'react-router-dom'
 
 export default function RenderCartCourses() {
-  const { cart } = useSelector((state) => state.cart)
-  const dispatch = useDispatch()
+  const { cart } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  
   return (
     <div className="flex flex-1 flex-col max-w-maxContent min-w-[150px] w-full">
       {cart.map((course, indx) => (
@@ -20,21 +22,21 @@ export default function RenderCartCourses() {
           <div className="flex flex-1 flex-col gap-4 xl:flex-row ">
             <img
               src={course?.thumbnail}
-              alt={course?.courseName}
+              alt={course?.title}
               className="h-[148px] w-[220px] rounded-lg object-cover"
             />
             <div className="flex flex-col space-y-1">
               <p className="text-lg font-medium text-richblack-5">
-                {course?.courseName}
+                {course?.title}
               </p>
               <p className="text-sm text-richblack-300">
                 {course?.category?.name}
               </p>
               <div className="flex items-center gap-2">
-                <span className="text-yellow-5">4.5</span>
+                <span className="text-yellow-5">{course?.ratingandreview?.length}</span>
                 <ReactStars
                   count={5}
-                  value={course?.ratingAndReviews?.length}
+                  value={course?.ratingandreview?.length}
                   size={20}
                   edit={false}
                   activeColor="#ffd700"
@@ -42,7 +44,7 @@ export default function RenderCartCourses() {
                   fullIcon={<FaStar />}
                 />
                 <span className="text-richblack-400">
-                  {course?.ratingAndReviews?.length} Ratings
+                  {course?.ratingandreview?.length} Ratings
                 </span>
               </div>
             </div>
