@@ -124,3 +124,29 @@ exports.updatedProfileImage = async(req,res) =>{
         })
     }
 }
+
+exports.getinstructorDashboard=async(req,res)=>{
+    try {
+        const courseDetails = await Course.find({ instructorname: req.user.id })
+    
+        const courseData = courseDetails.map((course) => {
+          const totalStudentsEnrolled = course.studenenrolled.length
+          const totalAmountGenerated = totalStudentsEnrolled * course.price
+    
+          const courseDataWithStats = {
+            _id: course._id,
+            courseName: course.title,
+            courseDescription: course.description,
+            totalStudentsEnrolled,
+            totalAmountGenerated,
+          }
+    
+          return courseDataWithStats
+        })
+    
+        res.status(200).json({ courses: courseData })
+      } catch (error) {
+        console.error(error)
+        res.status(500).json({ message: "Server Error" })
+      }
+}
