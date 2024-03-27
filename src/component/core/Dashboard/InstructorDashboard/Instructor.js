@@ -37,8 +37,8 @@ export default function Instructor() {
     )
   
     return (
-      <div>
-        <div className="space-y-2">
+      <div className='flex flex-col mx-auto mt-8 px-10 max-sm:px-4 w-full h-full '>
+        <div className="space-y-2 mb-3">
           <h1 className="text-2xl font-bold text-richblack-5">
             Hi {user?.firstname} 👋
           </h1>
@@ -49,37 +49,37 @@ export default function Instructor() {
         {loading ? (
           <div className="spinner"></div>
         ) : courses.length > 0 ? (
-          <div>
-            <div className="my-4 flex h-[450px] space-x-4">
-              {/* Render chart / graph */}
+          <div className=''>
+            <div className="my-4 flex lg:h-[450px] lg:flex-row flex-col  gap-4">
+              
               {totalAmount > 0 || totalStudents > 0 ? (
                 <InstructorChart courses={instructorData} />
               ) : (
-                <div className="flex-1 rounded-md bg-richblack-800 p-6">
+                <div className="flex-1 rounded-md bg-richblack-800 p-6 ">
                   <p className="text-lg font-bold text-richblack-5">Visualize</p>
                   <p className="mt-4 text-xl font-medium text-richblack-50">
                     Not Enough Data To Visualize
                   </p>
                 </div>
               )}
-              {/* Total Statistics */}
-              <div className="flex min-w-[250px] flex-col rounded-md bg-richblack-800 p-6">
-                <p className="text-lg font-bold text-richblack-5">Statistics</p>
-                <div className="mt-4 space-y-4">
-                  <div>
+             
+              <div className="flex min-w-[100px] flex-col  rounded-md bg-richblack-800 p-6">
+                <p className="text-lg  font-bold text-richblack-5">Statistics</p>
+                <div className="mt-4 flex lg:flex-col min-[480px]:flex-row flex-col gap-6 justify-between">
+                  <div >
                     <p className="text-lg text-richblack-200">Total Courses</p>
                     <p className="text-3xl font-semibold text-richblack-50">
                       {courses.length}
                     </p>
                   </div>
                   <div>
-                    <p className="text-lg text-richblack-200">Total Students</p>
+                    <p className="text-lg  text-richblack-200">Total Students</p>
                     <p className="text-3xl font-semibold text-richblack-50">
                       {totalStudents}
                     </p>
                   </div>
                   <div>
-                    <p className="text-lg text-richblack-200">Total Income</p>
+                    <p className="text-lg  text-richblack-200">Total Income</p>
                     <p className="text-3xl font-semibold text-richblack-50">
                       Rs. {totalAmount}
                     </p>
@@ -95,13 +95,13 @@ export default function Instructor() {
                   <p className="text-xs font-semibold text-yellow-50">View All</p>
                 </Link>
               </div>
-              <div className="my-4 flex items-start space-x-6">
+              <div className="my-4 flex items-start  gap-6  lg:flex-row flex-col">
                 {courses.slice(0, 3).map((course) => (
-                  <div key={course._id} className="w-1/3">
+                  <div key={course._id} className="lg:w-1/3 w-full ">
                     <img
                       src={course.thumbnail}
                       alt={course.title}
-                      className="h-[201px] w-full rounded-md object-cover"
+                      className=" aspect-video sm:aspect-[6/3] lg:aspect-video w-full  rounded-md object-cover"
                     />
                     <div className="mt-3 w-full">
                       <p className="text-sm font-medium text-richblack-50">
