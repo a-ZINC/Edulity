@@ -59,9 +59,9 @@ const Nestedview = ({handleEditSectionName}) => {
     <>
     <div className="rounded-lg bg-richblack-700 py-4 px-8">
         {
-            course?.section.map((sec,ind)=>(
+            course?.section?.map((sec,ind)=>(
                 <details key={sec?._id} open={ind===0} ref={ref} >
-                    <summary className={`flex cursor-pointer items-center justify-between ${!(ind===course?.section.length-1) && ref.current?ref.current.target.open && 'border-b-2':'' } border-b-richblack-600 py-3`}>
+                    <summary className={`flex cursor-pointer items-center justify-between ${!(ind===course?.section?.length-1) && ref.current?ref.current.target?.open && 'border-b-2':'' } border-b-richblack-600 py-3`}>
                         <div className="flex items-center gap-x-3">
                             <RxDropdownMenu className="text-2xl text-richblack-50" />
                             <p className="font-semibold text-richblack-50">
@@ -96,7 +96,7 @@ const Nestedview = ({handleEditSectionName}) => {
                         </summary>
                         <div className="px-6 pb-4">
             
-              {sec.subsection.map((data) => (
+              {sec?.subsection?.map((data) => (
                 <div
                   key={data?._id}
                   onClick={() => setViewSubSection(data)}

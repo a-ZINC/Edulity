@@ -24,6 +24,7 @@ const Navbar = () => {
     const [catalogdata,setcatalogdata]=useState(null);
     const [loading,setloading]=useState(false);
     const [uparrow,setuparrow]=useState(catalogdata?.filter((subLink) => subLink?.courses?.length > 0));
+    const[menu,setmenu]=useState(false)
     async function getcatalogdata(){
         setloading(true);
         try{
@@ -107,20 +108,23 @@ const Navbar = () => {
             }
             {token === null && (
             <Link to="/login">
-              <button className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100  max-sm:px-[6px] max-sm:py-[5px]">
+              <button className="rounded-[8px] border max-md:hidden border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100  max-sm:px-[6px] max-sm:py-[5px]">
                 Log in
               </button>
             </Link>
             )}
             {token === null && (
                 <Link to="/signup">
-                <button className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100 max-sm:px-[6px] max-sm:py-[5px]">
+                <button className="rounded-[8px] border border-richblack-700 max-md:hidden bg-richblack-800 px-[12px] py-[8px] text-richblack-100 max-sm:px-[6px] max-sm:py-[5px]">
                     Sign up
                 </button>
                 </Link>
             )}
             
             {token !== null && <Profiledropdown />}
+
+            <div className="text-2xl text-richblack-100 md:hidden" onClick={()=>setmenu(!menu)}><BsChevronDown></BsChevronDown></div>
+           {menu && <></>}
             
         </div>
 

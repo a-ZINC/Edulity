@@ -16,7 +16,9 @@ const {
     DELETE_COURSE_API,
     COURSE_DETAILS_API,
     COURSE_UNAUTHENTICATED_COURSE,
-    GET_USER_ENROLLED_COURSES_API
+    GET_USER_ENROLLED_COURSES_API,
+    CREATE_RATING_API,
+    LECTURE_COMPLETION_API
 
 }=courseEndpoints;
 
@@ -289,3 +291,49 @@ export async function getUserEnrolledCourses(token) {
     toast.dismiss(toastId)
     return result
   }
+
+  export const createRatingAndReview=async(formdata,token)=>{
+    const toastid=toast.loading("Loading...")
+    let response='';
+    try{
+        console.log(formdata,token);
+         response=await apiconnector('POST',CREATE_RATING_API,formdata,{
+            "Content-Type":"multipart/form-data",
+            Authorization:`Bearer ${token}`,
+        });
+        console.log(response);
+        toast.success('Created rating')
+    }catch(error){
+        console.log("create_rating API ERROR............", error)
+        toast.error(error?.response?.data?.message)
+    }
+    toast.dismiss(toastid)
+    return response?.data?.data;
+}
+
+export const markLectureAsComplete = async (data, token) => {
+    let result = null
+    console.log(data)
+    const toastId = toast.loading("Loading...")
+    try {
+      const response = await apiconnector("POST", LECTURE_COMPLETION_API, data, {
+        Authorization: `Bearer ${token}`,
+      })
+      console.log(
+        response
+      )
+  
+      if (!response.data.message) {
+        throw new Error(response.data.error)
+      }
+      toast.success("Lecture Completed")
+      result = true
+    } catch (error) {
+      console.log("MARK_LECTURE_AS_COMPLETE_API API ERROR", error)
+      toast.error(error.message)
+      result = false
+    }
+    toast.dismiss(toastId)
+    return result
+  }
+  

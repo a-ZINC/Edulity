@@ -14,7 +14,7 @@ import {
 import {toast} from 'react-hot-toast'
 
 const Coursebuilderform = () => {
-    const {course,step}=useSelector(state=>state.course);
+    const {course,editsec}=useSelector(state=>state.course);
     const {token}=useSelector(state=>state.auth);
     const [editSectionname,seteditSectionname]=useState(null);
     const [loading,setloading]=useState(false);
@@ -120,7 +120,7 @@ const Coursebuilderform = () => {
         </form>
 
         {
-            course?.section.length>0 && <Nestedview handleEditSectionName={handleEditSectionName}/>
+            course?.section?.length>0 && <Nestedview handleEditSectionName={handleEditSectionName}/>
         }
 
         <div className="flex justify-end gap-x-3">

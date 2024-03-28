@@ -1,5 +1,6 @@
 const RatingAndReview=require('../model/ratingandreview');
 const Course=require('../model/course');
+const mongoose=require('mongoose')
 
 exports.createRating = async(req,res) =>{
     try{
@@ -17,23 +18,23 @@ exports.createRating = async(req,res) =>{
         }
         const alreadyreviewed=await RatingAndReview.findOne({course:courseid,user:userid});
         if(alreadyreviewed){
+            console.log('already')
             return res.status(403).json({
                 success:false,
-                message:'Course is already reviewed by the user',
+                message:"Course already Reviewed"
             })
         }
-
         const rnr=await RatingAndReview.create({
             rating,review,
             course:courseid,
             user:userid
         });
+        console.log(typeof(rnr._id));
         const courseupdt=await Course.findByIdAndUpdate(courseid,{
-            ratingandreview:{
-                $push:rnr._id
-            }
+                $push:{ratingandreview:rnr._id}
+            
         },{new:true});
-
+        console.log(courseupdt)
 
         return res.status(200).json({
             success:true,

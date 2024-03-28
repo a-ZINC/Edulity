@@ -5,6 +5,7 @@ const initialState={
     course:null,
     editcourse:false,
     paymentloading: false,
+    editsec:false
 }
 
 const courseSlice=createSlice({
@@ -27,8 +28,10 @@ const courseSlice=createSlice({
         },
         setPaymentloading(state,value){
             state.paymentloading=value.payload
+        },
+        setEditsec(state,value){
+            state.editsec=value.payload
         }
-
     }
 })
 

@@ -7,6 +7,7 @@ const {createSection,updateSection,deleteSection}=require('../controller/section
 const {createSubsection,updateSubsection,deleteSubsection}=require('../controller/subsection');
 const {createCategory,showAllCategory,categoryDetails,showAllCategorywithpublishedCourse}=require('../controller/category');
 const {createRating,getavgrating,getallrating}=require('../controller/ratingAndReviews')
+const {updateCourseProgress}=require('../controller/courseprogress')
 
 
 router.post('/createcourse',auth,isInstructor,courseCreate);
@@ -34,6 +35,8 @@ router.post('/updatesubsection',auth,isInstructor,updateSubsection);
 router.post('/createrating',auth,isStudent,createRating);/*incoom*/
 router.post('/getavgrating',getavgrating);/*incoom*/
 router.get('/getallrating',getallrating);/*incoom*/
+
+router.post('/updatecourseprogress',auth,isStudent,updateCourseProgress)
 
 
 module.exports=router;

@@ -228,7 +228,15 @@ exports.getCourseDetail=async(req,res)=>{
     try{
         const {courseid}=req.body;
         const userid=req.user.id;
-        const course=await Course.findOne({_id:courseid}).populate('instructorname').exec();
+        const course=await Course.findOne({_id:courseid})
+                                                        .populate('instructorname')
+                                                        .populate({
+                                                            path:'section',
+                                                            populate:{
+                                                                path:'subsection'
+                                                            }
+                                                        })
+                                                        .exec();
         
         
         if(course?.instructorname._id != userid){

@@ -14,7 +14,7 @@ import { MdNavigateNext } from "react-icons/md";
 import {createCourse,editCoursedetails} from '../../../../../services/operations/course' 
 
 const Courseinfos = () => {
-    const {editcourse,course,step}=useSelector(state=>state.course);
+    const {editcourse,course,editsec}=useSelector(state=>state.course);
    
     const {token}=useSelector(state=>state.auth)
     const dispatch=useDispatch();
@@ -266,7 +266,7 @@ const Courseinfos = () => {
         <div className="flex justify-end gap-x-2">
           {editcourse && (
             <button
-              onClick={() => dispatch(setStep(2))}
+              onClick={() =>{ dispatch(setStep(2)); dispatch(editsec(true));}}
               disabled={loading}
               className={`flex cursor-pointer items-center gap-x-2 rounded-md bg-richblack-300 py-[8px] px-[20px] font-semibold text-richblack-900`}
             >
