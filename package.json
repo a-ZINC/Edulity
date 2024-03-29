@@ -1,5 +1,5 @@
 {
-  "name": "react-tailwind-css-starter-pack",
+  "name": "edulity",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,7 +13,6 @@
     "concurrently": "^8.2.2",
     "copy-to-clipboard": "^3.3.3",
     "fast-json-stable-stringify": "^2.1.0",
-    "json-stable-stringify-without-jsonify": "^1.0.1",
     "pascal-case": "^4.0.0",
     "razorpay": "^2.9.2",
     "react": "^18.2.0",
@@ -36,7 +35,6 @@
     "remark-gfm": "^4.0.0",
     "stable": "^0.1.8",
     "swiper": "^11.0.7",
-    "text-table": "^0.2.0",
     "video-react": "^0.16.0",
     "web-vitals": "^2.1.4"
   },
