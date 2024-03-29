@@ -1,5 +1,6 @@
 require('dotenv').config();
-const link=process.env.LOGO_URL
+const link=process.env.LOGO_URL;
+const url=process.env.FRONTEND_URL;
 exports.courseEnrollmentEmail = (title, name) => {
     return `<!DOCTYPE html>
     <html>
@@ -69,7 +70,7 @@ exports.courseEnrollmentEmail = (title, name) => {
     
     <body>
         <div class="container">
-        <a href="https://"><img class="logo"
+        <a href=${url}><img class="logo"
         src=${link} alt="Edulity Logo"></a>
             <div class="message">Course Registration Confirmation</div>
             <div class="body">

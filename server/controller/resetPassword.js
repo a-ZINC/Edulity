@@ -17,7 +17,7 @@ exports.resetPasswordToken = async(req,res) =>{
         }
 
         const token=await crypto.randomBytes(20).toString("hex");
-        const url=`http://localhost:3000/resetpassword/${token}`;
+        const url=`https://edulity.vercel.app/resetpassword/${token}`;
 
         const updatedDetails = await User.findOneAndUpdate(
 			{ email: email },

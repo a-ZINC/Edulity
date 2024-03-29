@@ -1,5 +1,6 @@
 require('dotenv').config();
-const link=process.env.LOGO_URL
+const link=process.env.LOGO_URL;
+const url=process.env.FRONTEND_URL;
 const resetPassword = (otp) => {
 	return `<!DOCTYPE html>
 	<html>
@@ -69,7 +70,7 @@ const resetPassword = (otp) => {
 	
 	<body>
 		<div class="container">
-			<a href="https://localhost:4000/"><img class="logo"
+			<a href=${url}><img class="logo"
 			src=${link} alt="Edulity Logo"></a>
 			<div class="message">Reset Password</div>
 			<div class="body">

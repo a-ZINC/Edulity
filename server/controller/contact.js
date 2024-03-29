@@ -3,6 +3,7 @@ const {contactUsEmail}=require('../mail/template/contactform');
 
 exports.contactUsEmail=async(req,res)=>{
     try{
+
         const {email,firstname,lastname,phone,countrycode,message}=req.body;
         const response=await mailsender(
             email,

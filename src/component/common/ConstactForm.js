@@ -4,6 +4,7 @@ import { useEffect,useState } from 'react';
 import Countrycode from '../../data/countrycode.json';
 import {apiconnector} from '../../services/Apiconnector';
 import { contactusEndpoint } from '../../services/Apiendpoints';
+import {toast} from 'react-hot-toast'
 
 
 
@@ -29,19 +30,23 @@ const ConstactForm = ({flag}) => {
     },[reset,isSubmitSuccessful])
 
     async function submitcontactform(data){
+        const toastid=toast.loading("Loading...");
         try {
-            setloading(true)
+            setloading(true);
             const res = await apiconnector(
               "POST",
               contactusEndpoint.CONTACT_US_API,
               data
             )
             //console.log("Email Res - ", res)
-            setloading(false)
+            setloading(false);
+            toast.success("Form submitted")
           } catch (error) {
             //console.log("ERROR MESSAGE - ", error.message)
             setloading(false)
+            toast.error("Form discarded")
           }
+          toast.dismiss(toastid)
     }
   return (
     <div className={`w-11/12 max-w-[600px] mx-auto ${flag && 'py-10 px-16 border border-richblack-500 rounded-xl'}  `}>
