@@ -29,7 +29,7 @@ app.use(
 )
 app.use(
 	cors({
-		origin:"https://edulity.vercel.app/",
+		origin:"https://edulity.vercel.app",
 		credentials:true,
 	})
 )
