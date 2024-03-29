@@ -1,6 +1,5 @@
 const express=require("express");
 const app=express();
-const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const {cloudinaryConnect}=require('./config/cloudinary');
 const {connect}=require('./config/database');
@@ -12,14 +11,15 @@ const paymentRoute=require('./routes/payment');
 const fileUpload=require('express-fileupload');
 const { courseCreate } = require("./controller/course");
 require("dotenv").config();
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+var cookieparser = require('cookie-parser')
 
 
 const port=process.env.PORT || 4000;
 
 
 app.use(express.json());
-app.use(cookieParser());
+app.use(cookieparser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
 	fileUpload({
