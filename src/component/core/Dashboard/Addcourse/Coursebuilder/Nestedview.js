@@ -26,7 +26,7 @@ const Nestedview = ({handleEditSectionName}) => {
     const handleDeleteSection=async(id)=>{
         setloading(true);
         const response=await deleteSection({sectionid:id,courseid:course._id},token);
-        console.log(response);
+        //console.log(response);
         if(response){
             dispatch(setCourse(response));
         }
@@ -34,22 +34,22 @@ const Nestedview = ({handleEditSectionName}) => {
         setmodal(null);
     }
     useEffect(()=>{
-        console.log(course)
+        //console.log(course)
         if(ref.current){
-          console.log(ref.current)
+          //console.log(ref.current)
         }
     },[course]);
     const handleDeleteSubSection=async(sectionid,subsectionid)=>{
         setloading(true);
-        console.log('deletesubsec')
+        //console.log('deletesubsec')
         const response=await deleteSubSection({sectionid,subsectionid},token);
-        console.log(response);
+        //console.log(response);
         if(response){
           const updatedsection=course?.section.map((sec)=>(
             sec._id===sectionid ? response : sec
           ));
           const updatedcourse={...course,section:updatedsection};
-          console.log(updatedcourse)
+          //console.log(updatedcourse)
           dispatch(setCourse(updatedcourse))
         }
         setConfirmationModals(false);

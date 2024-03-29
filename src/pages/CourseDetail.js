@@ -63,9 +63,9 @@ const CourseDetailed = () => {
         
         setloading(true)
         try{
-            console.log('hello')
+            //console.log('hello')
             const course_data=await getUnauthenticatedCourseDetail(courseId);
-            console.log(course_data);
+            //console.log(course_data);
             setcourse(course_data);
         }catch(error){
             console.log(error,"error occured in course data fetching")
@@ -76,7 +76,7 @@ const CourseDetailed = () => {
 
     useEffect(()=>{
         function listener(e){
-            console.log(e);
+           //console.log(e);
             setwidth(e.target.innerWidth);
         }
 
@@ -92,7 +92,7 @@ const CourseDetailed = () => {
         
     },[courseId]);
     useEffect(()=>{
-        console.log(course?.data?.description)
+        //console.log(course?.data?.description)
         const avgrate=GetAvgRating(course?.data?.ratingandreview);
         setavgrating(avgrate)
     },[course]);
@@ -107,7 +107,7 @@ const CourseDetailed = () => {
         
         setTotalNoOfLectures(lectures);
         const lengthres=getduration(course)
-        console.log(lengthres)
+        //console.log(lengthres)
         setduration(lengthres);
     }, [course]);
 

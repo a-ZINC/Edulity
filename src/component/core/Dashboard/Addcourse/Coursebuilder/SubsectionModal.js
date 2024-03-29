@@ -47,7 +47,7 @@ const SubsectionModal = ({modal,setmodal,add=false,view=false,edit=false}) => {
 
       const handleEditSubsection = async () => {
         const currentValues = getValues();
-        console.log(currentValues)
+        //console.log(currentValues)
         const formData = new FormData()
         formData.append("sectionid", modal.sectionid)
         formData.append("subsectionid", modal._id)
@@ -62,9 +62,9 @@ const SubsectionModal = ({modal,setmodal,add=false,view=false,edit=false}) => {
           formData.append('timeduration',duration);
         }
         setloading(true)
-        console.log('good')
+        //console.log('good')
         const result = await editSubSection(formData, token);
-        console.log(result)
+        //console.log(result)
         if (result) {
           
           const updatedCourseContent = course.section.map((section) =>
@@ -78,7 +78,7 @@ const SubsectionModal = ({modal,setmodal,add=false,view=false,edit=false}) => {
       }
     
       const onSubmit = async (data) => {
-        console.log(data);
+        //console.log(data);
         if (view) return
         
         if (edit) {
@@ -99,13 +99,13 @@ const SubsectionModal = ({modal,setmodal,add=false,view=false,edit=false}) => {
 
         setloading(true)
         const result = await addSubSection(formData, token);
-        console.log(result);
+        //console.log(result);
         if (result) {
           // update the structure of course
           const updatedCourseContent = course.section.map((sec) =>
             sec._id === modal ? result : sec
           )
-          console.log(updatedCourseContent)
+          //console.log(updatedCourseContent)
           const updatedCourse = { ...course, section: updatedCourseContent }
           dispatch(setCourse(updatedCourse))
         }
@@ -113,7 +113,7 @@ const SubsectionModal = ({modal,setmodal,add=false,view=false,edit=false}) => {
         setloading(false)
       }
       useEffect(()=>{
-        console.log(course);
+        //console.log(course);
       },[course])
 
   return (

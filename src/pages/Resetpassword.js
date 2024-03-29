@@ -31,7 +31,7 @@ function Resetpasswords() {
   const handleOnSubmit = (e) => {
     e.preventDefault()
     const token = location.pathname.split("/").at(-1)
-    console.log(token)
+    //console.log(token)
     dispatch(Resetpassword(password, confirmPassword, token, navigate))
   }
 

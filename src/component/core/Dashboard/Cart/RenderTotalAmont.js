@@ -16,12 +16,12 @@ export default function RenderTotalAmount() {
   useEffect(()=>{
     let arr=[]
     cart?.map((course)=>arr.push({courseId:course._id}));
-    console.log(arr);
+    //console.log(arr);
     setcourseid(arr)
   },[])
 
   const buynow=async()=>{
-    console.log(courseid)
+    //console.log(courseid)
     await createorder(token,courseid,user,navigate,dispatch)
   }
 

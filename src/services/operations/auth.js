@@ -15,8 +15,7 @@ export const sendotp = (email,navigate,userData) =>{
     return async(dispatch)=>{
         const toastId = toast.loading("Loading...")
         dispatch(setloading(true));
-        try{
-            
+        try{//
             const response=await apiconnector('POST',SENDOTP_API,{email});
             toast.success("OTP Sent Successfully")
             navigate("/verifyemail")
@@ -36,10 +35,10 @@ export const login = (email,password,navigate)=>{
         dispatch(setloading(true));
         try{
             const response=await apiconnector('POST',LOGIN_API,{email,password});
-            console.log(response)
+            //console.log(response)
             dispatch(settoken(response.data.token));
             const image=response.data.validuser.image?response.data.validuser.image:`https://api.dicebear.com/7.x/bottts/svg?seed=${response.data.validuser._id}`;
-            console.log(image);
+            //console.log(image);
             response.data.validuser.image=image;
             dispatch(setuser(response.data.validuser));
             localStorage.setItem('token', JSON.stringify(response.data.token));
@@ -71,9 +70,9 @@ export const signup = (accounttype,
         const toastId=toast.loading('loading...');
         dispatch(setloading(true));
         try{
-            console.log(otp,firstname,lastname,email,password,confirmpassword,accounttype,contact);
+            //console.log(otp,firstname,lastname,email,password,confirmpassword,accounttype,contact);
             const response=await apiconnector('POST',SIGNUP_API,{firstname,lastname,email,password,accounttype,otp,contact,confirmpassword});
-            console.log(response);
+            //console.log(response);
 
 
             toast.success('Signup Successful');
@@ -95,7 +94,7 @@ export const signup = (accounttype,
             dispatch(setloading(true));
             try{
                 const response=await apiconnector('POST',RESETPASSTOKEN_API,{email});
-                console.log(response);
+                //console.log(response);
     
     
                 toast.success('Reset Email Sent');
@@ -116,7 +115,7 @@ export const signup = (accounttype,
                 dispatch(setloading(true));
                 try{
                     const response=await apiconnector('POST',RESETPASSWORD_API,{newpass,confirmpass,token});
-                    console.log(response);
+                    //console.log(response);
         
                     toast.success('Password has been reset successfully');
                     navigate('/login');

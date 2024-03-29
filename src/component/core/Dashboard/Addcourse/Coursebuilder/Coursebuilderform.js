@@ -32,7 +32,7 @@ const Coursebuilderform = () => {
         if(editSectionname){
             setloading(true);
             const result=await editSection({title:data.sectionName,courseid:course._id,sectionid:editSectionname},token);
-            console.log(result);
+            //console.log(result);
             dispatch(setCourse(result));
             setValue('sectionName','')
             seteditSectionname(null)
@@ -41,7 +41,7 @@ const Coursebuilderform = () => {
         else{
             setloading(true);
             const result=await addSection({title:data.sectionName,courseid:course._id},token);
-            console.log(result);
+            //console.log(result);
             dispatch(setCourse(result));
             setValue('sectionName','')
             seteditSectionname(null)

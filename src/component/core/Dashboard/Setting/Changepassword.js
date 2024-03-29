@@ -22,7 +22,7 @@ export default function Changepassword() {
 
   const submitPasswordForm = async (data) => {
     try {
-      console.log(data)
+      //console.log(data)
       await changePassword(token, data)
     } catch (error) {
       console.log("ERROR MESSAGE - ", error.message)

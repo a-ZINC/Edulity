@@ -11,7 +11,7 @@ export const getCategoryCoursePage=async(formdata)=>{
     let course={};
     try{
         course=await apiconnector('POST',CATALOGPAGEDATA_COURSE_API,formdata);
-        console.log(course?.data?.data);
+        //console.log(course?.data?.data);
        
     }catch(error){
         console.log("CATALOGPAGEDATA_COURSE_API API ERROR............", error)

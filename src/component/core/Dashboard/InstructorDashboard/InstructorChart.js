@@ -65,7 +65,7 @@ export default function InstructorChart({ courses }) {
     function listener(e){
       
       if(e.target.innerWidth<1024 && e.target.innerWidth>600){
-        console.log(options.plugins.legend)
+        //console.log(options.plugins.legend)
         options.plugins.legend.position='right';
         setopt(options)
       }

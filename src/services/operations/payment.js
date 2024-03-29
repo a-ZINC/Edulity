@@ -38,13 +38,13 @@ export const createorder=async(token, courses, userDetails, navigate, dispatch)=
             toast.error("RazorPay SDK failed to load");
             return;
         }
-        console.log('heloo')
+        //console.log('heloo')
         const orderResponse = await apiconnector("POST", COURSE_PAYMENT_API, 
                                 {courses},
                                 {
                                     Authorization: `Bearer ${token}`,
                                 })
-        console.log(orderResponse);
+        //console.log(orderResponse);
 
         if(!orderResponse.data.success) {
             throw new Error('err');
@@ -73,7 +73,7 @@ export const createorder=async(token, courses, userDetails, navigate, dispatch)=
         paymentObject.open();
         paymentObject.on("payment.failed", function(response) {
             toast.error("oops, payment failed");
-            console.log(response.error);
+            //console.log(response.error);
         })
 
     }catch(error){
@@ -85,7 +85,7 @@ export const createorder=async(token, courses, userDetails, navigate, dispatch)=
 
 async function sendPaymentSuccessEmail(response, amount, token) {
     try{
-        console.log(response)
+        //console.log(response)
         await apiconnector("POST", SEND_PAYMENT_SUCCESS_EMAIL_API, {
             orderid: response.razorpay_order_id,
             paymentid: response.razorpay_payment_id,

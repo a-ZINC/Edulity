@@ -5,13 +5,15 @@ const CoursedurationProgress = ({courses,enrolledCourses}) => {
     const [courseprogpercen,setcourseprogpercen]=useState(null);
     const [duration,setduration]=useState(null)
     useEffect(()=>{
-        const totalvideos=courses?.section?.reduce((acc,val)=>acc+=val?.subsection.length);
-        const progressnumber=enrolledCourses?.courseprogress?.filter((prog)=>prog.course===courses._id);
+     
+      let totalvideos=0;
+        courses?.section?.forEach((val)=>{totalvideos+=val?.subsection?.length});
+        const progressnumber=enrolledCourses?.courseprogress?.filter((prog)=>prog.course===courses._id)[0];
         const percentage=progressnumber?.completedvideos?.length/totalvideos;
-        setcourseprogpercen(percentage);
-        console.log(courses)
+        setcourseprogpercen(percentage*100);
+        //console.log(percentage)
         const length=getduration(courses,true);
-        console.log(length)
+        //console.log(length)
         setduration(length);
     },[])
   return (

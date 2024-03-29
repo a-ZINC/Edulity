@@ -5,7 +5,7 @@ import { getInstructorData } from '../../../../services/operations/profile'
 import InstructorChart from './InstructorChart';
 import { Link } from 'react-router-dom';
 
-export default function Instructor() {
+export default function Instructors() {
     const { token } = useSelector((state) => state.auth)
     const { user } = useSelector((state) => state.profile)
     const [loading, setLoading] = useState(false)

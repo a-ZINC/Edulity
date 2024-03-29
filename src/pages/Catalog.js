@@ -6,6 +6,7 @@ import Navbar from '../component/common/Navbar';
 import CourseSlider from '../component/core/Catalog/CourseSlider';
 import CourseCards from '../component/core/Catalog/CourseCards';
 import Footer from '../component/common/Footer';
+import Reviewslider from '../component/common/Reviewslider';
 
 const Catalog = () => {
     const [categoryid,setcategoryid]=useState(null);
@@ -29,7 +30,7 @@ const Catalog = () => {
         setloading(true)
         try{
             const category_data=await getCategoryCoursePage({categoryid});
-            console.log(category_data);
+            //console.log(category_data);
             setcoursedata(category_data);
         }catch(error){
             console.log('Category course not found!')
@@ -130,6 +131,7 @@ const Catalog = () => {
             </div>
           </div>
           </div>
+          <Reviewslider/>
           <Footer />
     </>
   )

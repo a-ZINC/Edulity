@@ -44,9 +44,9 @@ const SignupForm = () => {
             ...formdata,
             accounttype
         }
-        console.log(userData);
+        //console.log(userData);
         dispatch(setsignupdata(userData));
-        console.log(signupdata);
+        //console.log(signupdata);
         dispatch(sendotp(email,navigate,userData));
 
         setformdata(()=>({

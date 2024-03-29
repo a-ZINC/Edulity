@@ -30,7 +30,7 @@ const Navbar = () => {
         try{
             
             const data=await apiconnector('GET',catalogData.CATALOGPAGEDATA_API_PUBLISHED)
-            console.log(data)
+            //console.log(data)
             setcatalogdata(data?.data?.data);
         }catch(error){
             console.log(error);
@@ -39,11 +39,11 @@ const Navbar = () => {
     }
     useEffect(()=>{
         getcatalogdata();
-        console.log(catalogdata)
+        //console.log(catalogdata)
     },[]);
     useEffect(()=>{
         const temp=catalogdata?.filter((subLink) =>( subLink?.courses?.length > 0 ));
-        console.log(temp);
+        //console.log(temp);
         
         setuparrow(temp);
         

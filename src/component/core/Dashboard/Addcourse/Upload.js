@@ -21,7 +21,7 @@ export default function Upload({
     const [selectedFile, setSelectedFile] = useState(null);
     const onDrop=(acceptedfiles)=>{
         const file = acceptedfiles[0];
-        console.log(file);
+        //console.log(file);
         
         if (file) {
         previewFile(file)

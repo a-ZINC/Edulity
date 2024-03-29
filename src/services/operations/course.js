@@ -26,7 +26,7 @@ export const fetchcategories=async()=>{
     let result=[];
     try{
         const response=await apiconnector('GET',COURSE_CATEGORIES_API);
-        console.log(response.data.data)
+        ////console.log(response.data.data)
         result=response?.data?.data
     }catch(error){
         console.log("COURSE_CATEGORY_API API ERROR............", error)
@@ -38,9 +38,9 @@ export const createCourse=async(formdata,token)=>{
     const toastid=toast.loading("Loading...");
     let response
     try{
-        console.log(formdata,token);
+        ////console.log(formdata,token);
         for (const value of formdata.values()) {
-            console.log(value);
+            ////console.log(value);
           }
          response=await apiconnector('POST',CREATE_COURSE_API,formdata,{
             "Content-Type":"multipart/form-data",
@@ -60,9 +60,9 @@ export const editCoursedetails=async(formdata,token)=>{
     const toastid=toast.loading("Loading...");
     let response='';
     try{
-        console.log(formdata,token);
+        //console.log(formdata,token);
         for (const value of formdata.values()) {
-            console.log(value);
+            //console.log(value);
           }
         response=await apiconnector('POST',EDIT_COURSE_API,formdata,{
             "Content-Type":"multipart/form-data",
@@ -120,12 +120,12 @@ export const deleteSection=async(formdata,token)=>{
     const toastid=toast.loading("Loading...")
     let response='';
     try{
-        console.log(formdata,token);
+        //console.log(formdata,token);
          response=await apiconnector('POST',DELETE_SECTION_API,formdata,{
             "Content-Type":"multipart/form-data",
             Authorization:`Bearer ${token}`,
         });
-        console.log(response);
+        //console.log(response);
         toast.success('Section Deleted')
     }catch(error){
         console.log("DELETE_SECTION_API API ERROR............", error)
@@ -197,12 +197,12 @@ export const fetchInstructorCourse=async(token)=>{
     
     let response
     try{
-        console.log("aya")
+        //console.log("aya")
          response=await apiconnector('GET',GET_ALL_INSTRUCTOR_COURSES_API,null,{
             "Content-Type":"multipart/form-data",
             Authorization:`Bearer ${token}`,
         });
-        console.log(response?.data?.data?.course);
+        //console.log(response?.data?.data?.course);
         
     }catch(error){
         console.log("GET_ALL_INSTRUCTOR_COURSES_API API ERROR............", error)
@@ -234,12 +234,12 @@ export const getCourseDetail=async(formdata,token)=>{
     
     let response
     try{
-        console.log(formdata)
+        //console.log(formdata)
          response=await apiconnector('POST',COURSE_DETAILS_API,formdata,{
             "Content-Type":"multipart/form-data",
             Authorization:`Bearer ${token}`,
         });
-        console.log(response?.data?.data);
+        //console.log(response?.data?.data);
         
     }catch(error){
         console.log("DELETE_COURSE_API API ERROR............", error)
@@ -296,12 +296,12 @@ export async function getUserEnrolledCourses(token) {
     const toastid=toast.loading("Loading...")
     let response='';
     try{
-        console.log(formdata,token);
+        //console.log(formdata,token);
          response=await apiconnector('POST',CREATE_RATING_API,formdata,{
             "Content-Type":"multipart/form-data",
             Authorization:`Bearer ${token}`,
         });
-        console.log(response);
+        //console.log(response);
         toast.success('Created rating')
     }catch(error){
         console.log("create_rating API ERROR............", error)
@@ -313,15 +313,13 @@ export async function getUserEnrolledCourses(token) {
 
 export const markLectureAsComplete = async (data, token) => {
     let result = null
-    console.log(data)
+    //console.log(data)
     const toastId = toast.loading("Loading...")
     try {
       const response = await apiconnector("POST", LECTURE_COMPLETION_API, data, {
         Authorization: `Bearer ${token}`,
       })
-      console.log(
-        response
-      )
+      
   
       if (!response.data.message) {
         throw new Error(response.data.error)
@@ -329,7 +327,7 @@ export const markLectureAsComplete = async (data, token) => {
       toast.success("Lecture Completed")
       result = true
     } catch (error) {
-      console.log("MARK_LECTURE_AS_COMPLETE_API API ERROR", error)
+      console.log("MARK_LECTURE_AS_COMPLETE_API API ERROR////", error)
       toast.error(error.message)
       result = false
     }

@@ -29,7 +29,7 @@ export default function Viewcourse() {
         const section=course?.section;
         const totallecture=course?.section?.reduce((acc,sec)=>{ return acc+=sec?.subsection?.length},0);
         const completevideo=coursedata?.courseprogress?.filter((cour)=>cour?.course===courseId)[0]?.completedvideos;
-        console.log(section)
+        //console.log(section)
 
         dispatch(setEntireCourseData(course));
         dispatch(setCourseSectionData(section));

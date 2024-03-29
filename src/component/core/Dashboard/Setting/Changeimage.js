@@ -17,7 +17,7 @@ const handleclick = () =>{
   fileref.current.click();
 }
 const handlefilechange = (e) =>{
-  console.log(e);
+  //console.log(e);
   const file=e.target.files[0];
   if(file){
     setimage(file);
@@ -28,7 +28,7 @@ const previewimg = (file) =>{
   const reader=new FileReader();
   reader.readAsDataURL(file);
   reader.onloadend = ()=>{
-    console.log(reader.result);
+    //console.log(reader.result);
     setpreview(reader.result);
   }
   
@@ -38,8 +38,8 @@ const handleFileUpload=async()=>{
       setloading(true);
       const formdata=new FormData();
       formdata.append("profileimage",image);
-      console.log(formdata);
-      console.log(user.token)
+      //console.log(formdata);
+      //console.log(user.token)
       dispatch(profileimageUpdate(user?.token,formdata)).then(()=>setloading(false));
 
     }catch(error){

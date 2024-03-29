@@ -36,10 +36,10 @@ const ConstactForm = ({flag}) => {
               contactusEndpoint.CONTACT_US_API,
               data
             )
-            console.log("Email Res - ", res)
+            //console.log("Email Res - ", res)
             setloading(false)
           } catch (error) {
-            console.log("ERROR MESSAGE - ", error.message)
+            //console.log("ERROR MESSAGE - ", error.message)
             setloading(false)
           }
     }

@@ -147,9 +147,10 @@ const Home = () => {
 
         <Instructors/>
 
-        <Reviewslider/>
+        
         
       </div>
+      <Reviewslider/>
       <Footer/>
 
     </>

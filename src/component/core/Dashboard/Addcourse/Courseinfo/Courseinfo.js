@@ -34,7 +34,7 @@ const Courseinfos = () => {
             try{
                 const response=await fetchcategories();
                 setcategories(response)
-                console.log(categories);
+                //console.log(categories);
             }catch(error){
                 toast.error(error.message)
             }

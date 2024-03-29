@@ -38,7 +38,7 @@ export default function RequirementsField({
 
   const handleAddRequirement = (e) => {
     
-    console.log(e);
+    //console.log(e);
     if (requirement) {
       setRequirementsList([...requirementsList, requirement])
       setRequirement("")

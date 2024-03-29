@@ -22,7 +22,7 @@ function Verifyemail() {
 
   const handleVerifyAndSignup = (e) => {
     e.preventDefault();
-    console.log(signupdata);
+    //console.log(signupdata);
     const {
       accounttype,
       firstname,
@@ -32,7 +32,7 @@ function Verifyemail() {
       confirmpassword,
       contact
     } = signupdata;
-    console.log(firstname);
+    //console.log(firstname);
     dispatch(
       signup(
         accounttype,

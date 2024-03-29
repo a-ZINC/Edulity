@@ -15,7 +15,7 @@ const Editcourse = () => {
     const editcoursehandler=async()=>{
       setLoading(true)
       const course=await getCourseDetail({courseid:params.courseId},token);
-      console.log(course)
+      //console.log(course)
       if(course){
       dispatch(setEditcourse(true));
       dispatch(setCourse(course));

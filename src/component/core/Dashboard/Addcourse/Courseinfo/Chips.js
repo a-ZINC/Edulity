@@ -7,7 +7,7 @@ const Chips = ({label,name,placeholder,register,errors,setValue,getValues}) => {
     const [chips,setchips]=useState([]);
     const {course,editcourse}=useSelector(state=>state.course)
     function handlekeydown(e){
-        console.log(e);
+        //console.log(e);
         
         if(e.code==='Enter' || e.code==="Comma"){
             const newchip=e.target.value.trim();
