@@ -23,7 +23,7 @@ import Catalog from "./pages/Catalog";
 import Cart from "./component/core/Dashboard/Cart";
 import CourseDetailed from "./pages/CourseDetail";
 import EnrollCourse from "./component/core/Dashboard/Enrolledcourse";
-import Instructors from "./component/core/Dashboard/InstructorDashboard/Instructors";
+import Instructors from "./component/core/Dashboard/InstructorDashboard/Instructor";
 import VideoDetails from "./component/core/viewcourse/VideoDetails";
 import Viewcourse from "./pages/Viewcourse";
 function App() {
